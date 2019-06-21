@@ -78,7 +78,7 @@ public class ListaDisponibles implements IArchivos {
 		FileInputStream archivoEntrada;
 		ObjectInputStream objetoEntrada;
 		try {
-			archivoEntrada= new FileInputStream(".\\archivos\\elementosIniciales.dat");
+			archivoEntrada= new FileInputStream("./archivos/elementosIniciales.dat");
 			objetoEntrada = new ObjectInputStream(archivoEntrada);
 			ElementoInicial aux=(ElementoInicial)objetoEntrada.readObject();
 			while(aux!=null) {
@@ -104,7 +104,7 @@ public class ListaDisponibles implements IArchivos {
 		FileOutputStream archivoSalida = null;
 		ObjectOutputStream objetoSalida = null;
 		try {
-			archivoSalida = new FileOutputStream(".\\archivos\\elementosIniciales.dat");
+			archivoSalida = new FileOutputStream("./archivos/elementosIniciales.dat");
 			objetoSalida = new ObjectOutputStream(archivoSalida);
 			for(Elemento e : disponibles) { 
 				objetoSalida.writeObject(e);

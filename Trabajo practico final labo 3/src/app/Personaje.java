@@ -46,7 +46,8 @@ public final class Personaje extends ElementoCompuesto {
 	
 	public void nuevoPuntaje(RegistroPartida nuevo) {
 		mejoresPuntajes.agregarATop(nuevo);
-		cantRegistros++;
+		if(getCantRegistros()<5)
+			cantRegistros++;
 	}
 
 	public void cargarPuntajes(RegistroPartida registro) {

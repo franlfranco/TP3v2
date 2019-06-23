@@ -129,6 +129,11 @@ public class GraficaMain extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		cover = new JLabel("");
+		cover.setIcon(new ImageIcon(GraficaMain.class.getResource("/appImagenes/cover.jpg")));
+		cover.setBounds(0, 0, 694, 440);
+		contentPane.add(cover);
+		
 		JLabel lblObjetivo = new JLabel("Objetivo: "); //Texto "Objetivo: "
 		lblObjetivo.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblObjetivo.setBounds(0, 11, 92, 14);
@@ -219,11 +224,6 @@ public class GraficaMain extends JFrame {
 		contentPane.add(imagenPersonaje);
 		iconFondo.setBounds(0, 0, 694, 440);
 		contentPane.add(iconFondo);
-		
-		cover = new JLabel("");
-		cover.setIcon(new ImageIcon(GraficaMain.class.getResource("/appImagenes/cover.jpg")));
-		cover.setBounds(0, 0, 694, 440);
-		contentPane.add(cover);
 		try{
 		}catch(Exception e){
 			System.out.println("No se pudo cargar la imagen: cover");

@@ -299,7 +299,11 @@ public class GraficaMain extends JFrame {
 			
 			//Activamos el inGame
 			inGame = true;
-			imagenPersonaje.setIcon(new ImageIcon(GraficaNuevaPartida.class.getResource("/appImagenes/"+partida.getNombrePersonajeObjetivo()+".jpg")));
+			try{
+				imagenPersonaje.setIcon(new ImageIcon(GraficaMain.class.getResource("/appImagenes/"+partida.getNombrePersonajeObjetivo()+".jpg")));
+			}catch (Exception e) {
+				imagenPersonaje.setIcon(new ImageIcon(GraficaMain.class.getResource("/appImagenes/noImage140x140.png")));
+			}
 		}
 			
 	}

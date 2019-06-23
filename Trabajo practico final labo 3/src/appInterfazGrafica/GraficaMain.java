@@ -34,6 +34,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
+import java.applet.AudioClip;
+
 public class GraficaMain extends JFrame {
 
 	///ELEMENTOS QUE UTILIZAMOS PARA PARTIDA
@@ -53,6 +55,8 @@ public class GraficaMain extends JFrame {
 	private static JLabel resultado; //Resultado de la mezcla
 	private static JButton btnCombinar;
 	private static JLabel imagenPersonaje;
+	private static AudioClip musica;
+	private static boolean musicOn = true;
 
 
 	//Componentes graficos utilizados y sus lógicas
@@ -102,7 +106,18 @@ public class GraficaMain extends JFrame {
 		JMenu mnAcercaDe = new JMenu("?"); //Menu de consultas
 		menuBar.add(mnAcercaDe);
 		
-		JMenuItem mntmComoJugar = new JMenuItem("Como jugar?"); //Explicacion del juego
+		JMenuItem mntmComoJugar = new JMenuItem("Musica on/off"); //Explicacion del juego
+		mntmComoJugar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(musicOn) {
+					musica.stop();
+					musicOn=false;
+				}else{
+					musica.loop();
+					musicOn=true;
+				}
+			}
+		});
 		mnAcercaDe.add(mntmComoJugar);
 		
 		JMenuItem mntmModoAdmin = new JMenuItem("Modo Admin"); //Sobre los creadores y el proyecto
@@ -182,7 +197,7 @@ public class GraficaMain extends JFrame {
 		
 		btnCombinar = new JButton("Combinar");
 		btnCombinar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnCombinar.setForeground(Color.GREEN);
+		btnCombinar.setForeground(Color.BLUE);
 		btnCombinar.setVisible(false);
 		btnCombinar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -214,7 +229,7 @@ public class GraficaMain extends JFrame {
 		
 		JLabel iconFondo = new JLabel(""); //Imagen de fondo
 		try {
-			iconFondo.setIcon(new ImageIcon(GraficaMain.class.getResource("/appImagenes/backgroundProvisorio.jpg")));
+			iconFondo.setIcon(new ImageIcon(GraficaMain.class.getResource("/appImagenes/background.jpg")));
 		}catch(Exception e) {
 			System.out.println("No se pudo cargar la imagen: background");
 		}
@@ -242,11 +257,15 @@ public class GraficaMain extends JFrame {
 					//Levantar de archivo y cargar a listaDeElementos
 					//crear la mezcladora, pasarle como parametro la listaDeElementos
 					//Levantar de archivo y cargar a listaDisponibles
+
 					listaDeElementos = new ListaDeElementos();
 					listaDeElementos.leerDeArchivo();
 					mezcladora = new Mezcladora(listaDeElementos);
 					JFrame main = new GraficaMain();
 					main.setVisible(true);
+					musica = java.applet.Applet.newAudioClip(getClass().getResource("/appImagenes/fla de las 3 am.wav"));
+					musica.loop();
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

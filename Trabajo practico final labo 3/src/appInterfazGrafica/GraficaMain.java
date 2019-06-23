@@ -57,10 +57,17 @@ public class GraficaMain extends JFrame {
 	private static JLabel imagenPersonaje;
 	private static AudioClip musica;
 	private static boolean musicOn = true;
+	private static AudioClip efectoNuevo;
+	private static AudioClip efectoExistente;
+	private static AudioClip partidaGanada;
 
 
 	//Componentes graficos utilizados y sus lógicas
 	public GraficaMain() {
+		musica = java.applet.Applet.newAudioClip(getClass().getResource("/appSonidos/fla de las 3 am.wav"));
+		efectoNuevo = java.applet.Applet.newAudioClip(getClass().getResource("/appSonidos/nuevaCombinacion.wav"));
+		efectoExistente = java.applet.Applet.newAudioClip(getClass().getResource("/appSonidos/combinacionExistente.wav"));
+		partidaGanada = java.applet.Applet.newAudioClip(getClass().getResource("/appSonidos/partidaGanada.wav"));
 		setResizable(false); //No se puede redimensionar la ventana
 		setTitle("Trabajo practico laboratorio III"); //Titulo de ventana
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Funcion al cerrar app = terminar ejecución
@@ -263,7 +270,6 @@ public class GraficaMain extends JFrame {
 					mezcladora = new Mezcladora(listaDeElementos);
 					JFrame main = new GraficaMain();
 					main.setVisible(true);
-					musica = java.applet.Applet.newAudioClip(getClass().getResource("/appImagenes/fla de las 3 am.wav"));
 					musica.loop();
 					
 				} catch (Exception e) {
@@ -360,6 +366,7 @@ public class GraficaMain extends JFrame {
 				//partida.agregarElementoDisponible(temp3);
 				listaDisponibles.agregar(temp3);
 				resultado.setText("---> "+temp3.getNombreElemento()+" <---");
+				efectoNuevo.play();
 				actualizarListados();
 				if(temp3.equals(partida.getPersonaje())) {
 					btnCombinar.setVisible(false);
@@ -369,9 +376,11 @@ public class GraficaMain extends JFrame {
 				
 			}else {
 				resultado.setText(temp3.getNombreElemento());
+				efectoExistente.play();
 			}
 		}else if(temp3 == null) {
 			resultado.setText("Nada sucede");
+			efectoExistente.play();
 		}
 	}
 	
@@ -380,7 +389,7 @@ public class GraficaMain extends JFrame {
 		partida.setPuntajeJugadorPorCronometro();
 		System.out.println("Ganaste!, tu puntuacion fue de: "+partida.getPuntajeJugador()+" con tiempo de: "+partida.getTimer());
 		cover.setVisible(true);
-		
+		partidaGanada.play();
 		JOptionPane.showMessageDialog(null, "Ganaste!, tu tiempo fue de: "+partida.getTimer());
 		inGame = false;
 		RegistroPartida nuevo = new RegistroPartida(partida.getNombreJugador(),partida.getNombrePersonajeObjetivo(),

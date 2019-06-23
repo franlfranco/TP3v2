@@ -7,80 +7,89 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.TreeSet;
 
 /**
  * Clase contenedora de HashMap de lista de elementos totales
  *
  */
 public class ListaDeElementos implements IArchivos {
-	HashMap <String,Elemento>listaElementos;
-	
+	HashMap<String, Elemento> listaElementos;
+
 	/**
 	 * Constructor de ListaDeElementos
 	 */
 	public ListaDeElementos() {
 		super();
-		listaElementos = new HashMap <String,Elemento>();
+		listaElementos = new HashMap<String, Elemento>();
 	}
 
 	/**
 	 * Agrega un elemento al HashMap
+	 * 
 	 * @param codigoAcceso
 	 * @param elemento
 	 */
-	public void agregarElemento (String codigoAcceso, Elemento elemento) {
+	public void agregarElemento(String codigoAcceso, Elemento elemento) {
 		listaElementos.put(codigoAcceso, elemento);
 	}
 
 	/**
 	 * Elimina un elemento del HashMap
+	 * 
 	 * @param codigoAcceso
 	 */
 	public void eliminarElemento(String codigoAcceso) {
 		listaElementos.remove(codigoAcceso);
 	}
-	
+
 	/**
-	 * A través del código de acceso, retorna un Elemento
+	 * A travï¿½s del cï¿½digo de acceso, retorna un Elemento
+	 * 
 	 * @param codigoAcceso
 	 * @return Elemento o null si no lo encuentra
 	 */
 	public Elemento getElemento(String codigoAcceso) {
 		return listaElementos.get(codigoAcceso);
 	}
-	
+
 	/**
-	 * Retorna true si el elemento (por codigo de acceso) existe en la colección
+	 * Retorna true si el elemento (por codigo de acceso) existe en la colecciï¿½n
+	 * 
 	 * @param codigoAcceso
 	 * @return
 	 */
-	public boolean isElemento (String codigoAcceso) {
-		if(listaElementos.containsKey(codigoAcceso))
+	public boolean isElemento(String codigoAcceso) {
+		if (listaElementos.containsKey(codigoAcceso))
 			return true;
 		else
 			return false;
 	}
-	
+
 	/**
-	 * Retorna true si el elemento (por Objeto Elemento) existe en la colección
+	 * Retorna true si el elemento (por Objeto Elemento) existe en la colecciï¿½n
+	 * 
 	 * @param elemento
 	 * @return
 	 */
 	public boolean isElemento(Elemento elemento) {
-		if(listaElementos.containsValue(elemento))
+		if (listaElementos.containsValue(elemento))
 			return true;
-		else return false;
+		else
+			return false;
 	}
-	
+
 	/**
-	 * Lee de los archivos elementosCompuestos.dat y personajes.dat para cargar a la lista
+	 * Lee de los archivos elementosCompuestos.dat y personajes.dat para cargar a la
+	 * lista
 	 */
 	@Override
 	public void leerDeArchivo() {
 
 		leerDeArchivoCompuestos();
 		leerDeArchivoPersonajes();
-		
+
 	}
 
 	public void leerDeArchivoPersonajes() {
@@ -92,25 +101,25 @@ public class ListaDeElementos implements IArchivos {
 			objetoEntrada = new ObjectInputStream(archivoEntrada);
 			registroEntrada = new ObjectInputStream(archivoEntrada);
 
-			Personaje aux = (Personaje)objetoEntrada.readObject();
+			Personaje aux = (Personaje) objetoEntrada.readObject();
 			aux.inicializarlistaPartidas();
 			RegistroPartida aux2;
-			while(aux!=null) {
-				for (int i = 0;i<aux.getCantRegistros();i++) {
-					aux2 = (RegistroPartida)registroEntrada.readObject();
+			while (aux != null) {
+				for (int i = 0; i < aux.getCantRegistros(); i++) {
+					aux2 = (RegistroPartida) registroEntrada.readObject();
 					aux.cargarPuntajes(aux2);
 				}
 				listaElementos.put(aux.getCodigoAcceso(), aux);
-				aux=(Personaje)objetoEntrada.readObject();
-				if(aux!=null)
-				aux.inicializarlistaPartidas();
+				aux = (Personaje) objetoEntrada.readObject();
+				if (aux != null)
+					aux.inicializarlistaPartidas();
 			}
 			objetoEntrada.close();
 			archivoEntrada.close();
-		}catch(FileNotFoundException e) {
-			
-		}catch(IOException e) {
-			
+		} catch (FileNotFoundException e) {
+
+		} catch (IOException e) {
+
 		} catch (ClassNotFoundException e) {
 
 		}
@@ -123,44 +132,44 @@ public class ListaDeElementos implements IArchivos {
 			archivoEntrada = new FileInputStream("./archivos/elementosCompuestos.dat");
 			objetoEntrada = new ObjectInputStream(archivoEntrada);
 
-			ElementoCompuesto aux = (ElementoCompuesto)objetoEntrada.readObject();
-			while(aux!=null) {
+			ElementoCompuesto aux = (ElementoCompuesto) objetoEntrada.readObject();
+			while (aux != null) {
 				listaElementos.put(aux.getCodigoAcceso(), aux);
-				aux=(ElementoCompuesto)objetoEntrada.readObject();
+				aux = (ElementoCompuesto) objetoEntrada.readObject();
 			}
 			objetoEntrada.close();
 			archivoEntrada.close();
-		}catch(FileNotFoundException e) {
-			
-		}catch(IOException e) {
-			
+		} catch (FileNotFoundException e) {
+
+		} catch (IOException e) {
+
 		} catch (ClassNotFoundException e) {
 
 		}
 	}
-	
+
 	/**
-	 * Carga a los archivos elementosCompuestos.dat y personajes.dat a partir de la lista de elementos
+	 * Carga a los archivos elementosCompuestos.dat y personajes.dat a partir de la
+	 * lista de elementos
 	 */
 	@Override
 	public void cargarArchivo() {
 		cargarArchivoCompuestos();
 		cargarArchivoPersonajes();
 	}
-	
-	
+
 	public void cargarArchivoCompuestos() {
 		FileOutputStream archivoSalidaCompuestos = null;
 		ObjectOutputStream objetoSalidaCompuestos = null;
-		
+
 		try {
 			archivoSalidaCompuestos = new FileOutputStream("./archivos/elementosCompuestos.dat");
 			objetoSalidaCompuestos = new ObjectOutputStream(archivoSalidaCompuestos);
 			ElementoCompuesto aux = null;
-			
-			for(String key : listaElementos.keySet()){ //Fuente StackOverFlow (Iterar en map a traves del key
-				if(!(listaElementos.get(key) instanceof Personaje)) {
-					aux=(ElementoCompuesto)listaElementos.get(key);
+
+			for (String key : listaElementos.keySet()) { // Fuente StackOverFlow (Iterar en map a traves del key
+				if (!(listaElementos.get(key) instanceof Personaje)) {
+					aux = (ElementoCompuesto) listaElementos.get(key);
 					objetoSalidaCompuestos.writeObject(aux);
 				}
 			}
@@ -168,7 +177,7 @@ public class ListaDeElementos implements IArchivos {
 			System.out.println("File not found");
 		} catch (IOException e) {
 			System.out.println("IO exception");
-		}finally {
+		} finally {
 			try {
 				objetoSalidaCompuestos.close();
 				archivoSalidaCompuestos.close();
@@ -177,25 +186,27 @@ public class ListaDeElementos implements IArchivos {
 			}
 		}
 	}
-	
+
 	public void cargarArchivoPersonajes() {
 		FileOutputStream archivoSalidaPersonajes = null;
 		ObjectOutputStream objetoSalidaPersonajes = null;
 		ObjectOutputStream objetoSalidaRegistros = null;
-		
+
 		try {
 			archivoSalidaPersonajes = new FileOutputStream("./archivos/personajes.dat");
 			objetoSalidaPersonajes = new ObjectOutputStream(archivoSalidaPersonajes);
 			objetoSalidaRegistros = new ObjectOutputStream(archivoSalidaPersonajes);
 			Personaje aux = null;
-			for(String key : listaElementos.keySet()){ //Fuente StackOverFlow (Iterar en map a traves del key
-				if(listaElementos.get(key) instanceof Personaje) {
-					aux=(Personaje)listaElementos.get(key);
+			for (String key : listaElementos.keySet()) { // Fuente StackOverFlow (Iterar en map a traves del key
+				if (listaElementos.get(key) instanceof Personaje) {
+					aux = (Personaje) listaElementos.get(key);
 					objetoSalidaPersonajes.writeObject(aux);
 					System.out.println("Graba un pj");
-					if(aux.getCantRegistros()>0)
-					for(RegistroPartida r : aux.getColeccion()) {
-						objetoSalidaRegistros.writeObject(r);
+					if (aux.getCantRegistros() > 0) {
+						Iterator<RegistroPartida> it = aux.getColeccion().iterator();
+						while (it.hasNext()) {
+							objetoSalidaRegistros.writeObject(it.next());
+						}
 					}
 				}
 			}
@@ -203,7 +214,7 @@ public class ListaDeElementos implements IArchivos {
 			System.out.println("File not found");
 		} catch (IOException e) {
 			System.out.println("IO exception personaje");
-		}finally {
+		} finally {
 			try {
 				objetoSalidaPersonajes.close();
 				archivoSalidaPersonajes.close();
@@ -212,13 +223,13 @@ public class ListaDeElementos implements IArchivos {
 			}
 		}
 	}
-	
-	public HashMap<String,Elemento> getColeccion(){
+
+	public HashMap<String, Elemento> getColeccion() {
 		return listaElementos;
 	}
-	
+
 	public int getCantidadElementos() {
 		return listaElementos.size();
 	}
-	
+
 }

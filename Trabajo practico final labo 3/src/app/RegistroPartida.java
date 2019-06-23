@@ -3,12 +3,11 @@ package app;
 import java.io.Serializable;
 
 /**
- * Clase que guarda la información de una partida
- * finalizada. No se pueden cambiar los datos
- * una vez inicializado el registro (Solo métodos get).
+ * Clase que guarda la informaciï¿½n de una partida finalizada. No se pueden
+ * cambiar los datos una vez inicializado el registro (Solo mï¿½todos get).
  *
  */
-public class RegistroPartida implements Serializable {
+public class RegistroPartida implements Serializable, Comparable {
 	private String nombreJugador;
 	private String personajeObjetivo;
 	private String timer;
@@ -23,15 +22,16 @@ public class RegistroPartida implements Serializable {
 		timer = "00 : 00 : 00";
 		puntaje = 0;
 	}
-	
+
 	/**
 	 * Constructor de partida
+	 * 
 	 * @param nombreJugador
 	 * @param personajeObjetivo
 	 * @param timer
 	 * @param puntaje
 	 */
-	public RegistroPartida(String nombreJugador,String personajeObjetivo,String timer,int puntaje) {
+	public RegistroPartida(String nombreJugador, String personajeObjetivo, String timer, int puntaje) {
 		this.nombreJugador = nombreJugador;
 		this.personajeObjetivo = personajeObjetivo;
 		this.timer = timer;
@@ -69,20 +69,32 @@ public class RegistroPartida implements Serializable {
 	public int getPuntaje() {
 		return puntaje;
 	}
-	
+
+	/*
+	@Override
 	public int compareTo(RegistroPartida b) {
-		if(getPuntaje()>b.getPuntaje())
+		if (getPuntaje() > b.getPuntaje())
 			return -1;
-		else if(getPuntaje()<b.getPuntaje())
+		else if (getPuntaje() < b.getPuntaje())
 			return 1;
 		return 0;
-	}
+	}*/
 
 	@Override
 	public String toString() {
-		return ""+getNombreJugador()+" - "+getTimer();
+		return "" + getNombreJugador() + " - " + getTimer();
 	}
-	
 
-	
+	@Override
+	public int compareTo(Object o) {
+		if(o instanceof RegistroPartida) {
+			if (getPuntaje() > ((RegistroPartida) o).getPuntaje())
+				return -1;
+			else if (getPuntaje() < ((RegistroPartida) o).getPuntaje())
+				return 1;
+			return 0;
+		}
+		throw new ClassCastException();
+	}
+
 }

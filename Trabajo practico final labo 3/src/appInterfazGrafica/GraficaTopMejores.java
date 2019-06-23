@@ -154,13 +154,14 @@ public class GraficaTopMejores extends JDialog {
 		top5.setText("5 - --------------------------");
 
 		try {
-			top1.setText(aux2.getTop(1));
+			//top1.setText(aux2.getTop(1));
 			top2.setText(aux2.getTop(2));
-			top3.setText(aux2.getTop(3));
-			top4.setText(aux2.getTop(4));
-			top5.setText(aux2.getTop(5));
+			//top3.setText(aux2.getTop(3));
+			//top4.setText(aux2.getTop(4));
+			//top5.setText(aux2.getTop(5));
 		} catch(Exception e) {
-			
+			System.out.println("Tu vieja");
+			e.getMessage();
 		}
 	}
 }

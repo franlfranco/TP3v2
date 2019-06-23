@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class GraficaTopMejores extends JDialog {
 
@@ -123,6 +124,15 @@ public class GraficaTopMejores extends JDialog {
 		});
 		btnCargar.setBounds(193, 230, 89, 23);
 		getContentPane().add(btnCargar);
+		
+		JLabel background = new JLabel("");
+		try{
+			background.setIcon(new ImageIcon(GraficaTopMejores.class.getResource("/appImagenes/cover.jpeg")));
+		}catch(Exception e) {
+			System.out.println("No se pudo cargar la imagen: background");
+		}
+		background.setBounds(0, 0, 434, 262);
+		getContentPane().add(background);
 
 	}
 	

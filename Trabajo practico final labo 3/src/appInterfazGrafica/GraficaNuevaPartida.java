@@ -3,6 +3,7 @@ package appInterfazGrafica;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -23,6 +24,8 @@ import app.Personaje;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.JRadioButton;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class GraficaNuevaPartida extends JDialog {
 
@@ -35,6 +38,7 @@ public class GraficaNuevaPartida extends JDialog {
 	private static boolean archivoCargado = false;
 	private static int cantidadCargados = 0;
 	private static ListaDeElementos personajes;
+	private static JLabel imagenPersonaje;
 	/**
 	 * Launch the application.
 	 */
@@ -79,6 +83,20 @@ public class GraficaNuevaPartida extends JDialog {
 		JLabel lblNombreDelJugador = new JLabel("Nombre del jugador :");
 		lblNombreDelJugador.setBounds(29, 23, 174, 20);
 		contentPanel.add(lblNombreDelJugador);
+		comboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				int state = e.getStateChange();
+				if(state == e.SELECTED) {
+					Personaje seleccionado = (Personaje)e.getItem();
+					try {
+						imagenPersonaje.setIcon(new ImageIcon(GraficaNuevaPartida.class.getResource("/appImagenes/"+seleccionado.getNombreElemento()+".jpg")));
+					}catch(Exception ex) {
+						System.out.println("El seleccionado no tiene imagen");
+						imagenPersonaje.setIcon(new ImageIcon(GraficaNuevaPartida.class.getResource("/appImagenes/noImage140x140.png")));
+					}
+				}
+			}
+		});
 		
 		comboBox.setBounds(29, 126, 149, 20);
 		contentPanel.add(comboBox);
@@ -90,6 +108,16 @@ public class GraficaNuevaPartida extends JDialog {
 		JRadioButton random = new JRadioButton("Aleatorio");
 		random.setBounds(29, 173, 109, 23);
 		contentPanel.add(random);
+		
+		imagenPersonaje = new JLabel("");
+		imagenPersonaje.setBounds(286, 23, 140, 140);
+		Personaje seleccionado = (Personaje)comboBox.getSelectedItem();
+		try {
+			imagenPersonaje.setIcon(new ImageIcon(GraficaNuevaPartida.class.getResource("/appImagenes/"+seleccionado.getNombreElemento()+".jpg")));
+		}catch(Exception ex) {
+			imagenPersonaje.setIcon(new ImageIcon(GraficaNuevaPartida.class.getResource("/appImagenes/noImage140x140.png")));
+		}
+		contentPanel.add(imagenPersonaje);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

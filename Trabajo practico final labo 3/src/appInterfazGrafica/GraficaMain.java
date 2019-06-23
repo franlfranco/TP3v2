@@ -52,6 +52,7 @@ public class GraficaMain extends JFrame {
 	private static List list2; //Lista derecha
 	private static JLabel resultado; //Resultado de la mezcla
 	private static JButton btnCombinar;
+	private static JLabel imagenPersonaje;
 
 
 	//Componentes graficos utilizados y sus lógicas
@@ -128,11 +129,6 @@ public class GraficaMain extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		cover = new JLabel("");
-		cover.setIcon(new ImageIcon(GraficaMain.class.getResource("/appImagenes/cover.jpg")));
-		cover.setBounds(0, 0, 694, 440);
-		contentPane.add(cover);
-		
 		JLabel lblObjetivo = new JLabel("Objetivo: "); //Texto "Objetivo: "
 		lblObjetivo.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblObjetivo.setBounds(0, 11, 92, 14);
@@ -174,9 +170,9 @@ public class GraficaMain extends JFrame {
 		
 		resultado = new JLabel(); //Resultado de la mezcla
 		resultado.setText("Resultado Mezcladora");
-		resultado.setForeground(new Color(0, 0, 128));
+		resultado.setForeground(Color.WHITE);
 		resultado.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		resultado.setBounds(202, 162, 339, 46);
+		resultado.setBounds(249, 129, 204, 46);
 		contentPane.add(resultado);
 		
 		btnCombinar = new JButton("Combinar");
@@ -198,6 +194,11 @@ public class GraficaMain extends JFrame {
 			System.out.println("No se pudo cargar la imagen: caldera");
 		}
 		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon(GraficaMain.class.getResource("/appImagenes/backText.png")));
+		label.setBounds(221, 132, 220, 43);
+		contentPane.add(label);
+		
 		JLabel fondoPersonaje = new JLabel("");
 		fondoPersonaje.setIcon(new ImageIcon(GraficaMain.class.getResource("/appImagenes/backText.png")));
 		fondoPersonaje.setBounds(0, 0, 220, 43);
@@ -212,8 +213,17 @@ public class GraficaMain extends JFrame {
 		}catch(Exception e) {
 			System.out.println("No se pudo cargar la imagen: background");
 		}
+		
+		imagenPersonaje = new JLabel("");
+		imagenPersonaje.setBounds(41, 54, 140, 140);
+		contentPane.add(imagenPersonaje);
 		iconFondo.setBounds(0, 0, 694, 440);
 		contentPane.add(iconFondo);
+		
+		cover = new JLabel("");
+		cover.setIcon(new ImageIcon(GraficaMain.class.getResource("/appImagenes/cover.jpg")));
+		cover.setBounds(0, 0, 694, 440);
+		contentPane.add(cover);
 		try{
 		}catch(Exception e){
 			System.out.println("No se pudo cargar la imagen: cover");
@@ -289,6 +299,7 @@ public class GraficaMain extends JFrame {
 			
 			//Activamos el inGame
 			inGame = true;
+			imagenPersonaje.setIcon(new ImageIcon(GraficaNuevaPartida.class.getResource("/appImagenes/"+partida.getNombrePersonajeObjetivo()+".jpg")));
 		}
 			
 	}
@@ -325,7 +336,7 @@ public class GraficaMain extends JFrame {
 			if(!partida.elementoYaDisponible(temp3)) {
 				//partida.agregarElementoDisponible(temp3);
 				listaDisponibles.agregar(temp3);
-				resultado.setText("Desbloqueaste a: "+temp3.getNombreElemento());
+				resultado.setText("---> "+temp3.getNombreElemento()+" <---");
 				actualizarListados();
 				if(temp3.equals(partida.getPersonaje())) {
 					btnCombinar.setVisible(false);
@@ -334,10 +345,10 @@ public class GraficaMain extends JFrame {
 					
 				
 			}else {
-				resultado.setText("Elemento ya desbloqueado");
+				resultado.setText(temp3.getNombreElemento());
 			}
 		}else if(temp3 == null) {
-			resultado.setText("Nada surge de la combinación");
+			resultado.setText("Nada sucede");
 		}
 	}
 	

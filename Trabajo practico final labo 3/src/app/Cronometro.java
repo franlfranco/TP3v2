@@ -68,6 +68,11 @@ public class Cronometro implements Runnable {
 						segundos=0;
 						minutos++;
 					}
+					else if(minutos==99) {
+						segundos=59;
+						milisegundos=99;
+						close();
+					}
 					else if(visor!=null)
 						visor.setText(toString());
 				}else {

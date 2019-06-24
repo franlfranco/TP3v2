@@ -9,9 +9,8 @@ import java.io.ObjectOutputStream;
 import java.util.Iterator;
 import java.util.Map;
 
-public class ManejadoraArchivos<T extends Lista, E> {
+public class ManejadoraArchivos<T extends Lista> {
 	private T lista;
-	private E elemento;
 	private String ruta;
 	private Iterator it;
 
@@ -88,11 +87,6 @@ public class ManejadoraArchivos<T extends Lista, E> {
 							objetoSalidaRegistros.writeObject(r);
 						}
 					}
-					/*
-					if(((Personaje)aux2).getCantRegistros()>0)
-						for(RegistroPartida r : ((Personaje)aux2).getColeccion()) {
-							objetoSalidaRegistros.writeObject(r);
-						}*/
 				}
 			} catch (FileNotFoundException e) {
 				System.out.println("File not found");

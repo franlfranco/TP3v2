@@ -19,6 +19,7 @@ import javax.swing.JCheckBox;
 import javax.swing.event.ChangeListener;
 
 import app.ListaDeElementos;
+import app.ManejadoraArchivos;
 import app.Partida;
 import app.Personaje;
 
@@ -39,6 +40,7 @@ public class GraficaNuevaPartida extends JDialog {
 	private static int cantidadCargados = 0;
 	private static ListaDeElementos personajes;
 	private static JLabel imagenPersonaje;
+	private static String ruta = "./archivos/personajes.dat";
 	/**
 	 * Launch the application.
 	 */
@@ -65,7 +67,9 @@ public class GraficaNuevaPartida extends JDialog {
 		
 		if(!archivoCargado) {
 			personajes = new ListaDeElementos();
-			personajes.leerDeArchivoPersonajes();
+			//personajes.leerDeArchivoPersonajes();
+			ManejadoraArchivos archi = new ManejadoraArchivos(personajes,ruta);
+			archi.leerArchivoPersonajes();
 			archivoCargado=true;
 		//}
 		for(String key : personajes.getColeccion().keySet()){

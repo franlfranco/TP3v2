@@ -12,6 +12,7 @@ public class Partida {
 	private int puntajeJugador;
 	private ListaDisponibles listaDisponibles;
 	private HiloCronometro cronometro;
+	private String rutaIniciales = "./archivos/elementosIniciales.dat";
 	
 	/**
 	 * Constructor sin parametros, inicializa strings y personajes en "sin definir"
@@ -40,7 +41,9 @@ public class Partida {
 		this.puntajeJugador=0;
 		cronometro = new HiloCronometro(new Cronometro());
 		listaDisponibles = new ListaDisponibles ();
-		listaDisponibles.leerDeArchivo();
+		//listaDisponibles.leerDeArchivo();
+		ManejadoraArchivos archi = new ManejadoraArchivos(listaDisponibles,rutaIniciales);
+		archi.leerArchivo();
 	}
 
 	/**

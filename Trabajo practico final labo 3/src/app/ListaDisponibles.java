@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * en partida (Incluye los iniciales y los que se desbloquean)
  *
  */
-public class ListaDisponibles implements IArchivos {
+public class ListaDisponibles extends Lista implements IArchivos {
 	private ArrayList <Elemento> disponibles;
 	
 	/**
@@ -125,4 +125,5 @@ public class ListaDisponibles implements IArchivos {
 		}
 		
 	}
+	
 }

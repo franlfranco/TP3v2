@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 
 import app.ListaDeElementos;
 import app.ListaPartidas;
+import app.ManejadoraArchivos;
 import app.Personaje;
 
 import java.awt.Font;
@@ -29,6 +30,7 @@ public class GraficaTopMejores extends JDialog {
 	private static JLabel top3;
 	private static JLabel top4;
 	private static JLabel top5;
+	private static String rutaPersonajes = "./archivos/personajes.dat";
 	
 	/**
 	 * Launch the application.
@@ -137,7 +139,9 @@ public class GraficaTopMejores extends JDialog {
 	
 	public static void actualizarJComboBox () {
 		personajeObjetivo.removeAll();
-		personajes.leerDeArchivoPersonajes();
+		//personajes.leerDeArchivoPersonajes();
+		ManejadoraArchivos manejadoraArchivos = new ManejadoraArchivos(personajes,rutaPersonajes);
+		manejadoraArchivos.leerArchivoPersonajes();
 		for(String key : personajes.getColeccion().keySet())
 			personajeObjetivo.addItem((Personaje) personajes.getElemento(key));
 		

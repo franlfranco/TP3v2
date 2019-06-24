@@ -78,7 +78,7 @@ public class ManejadoraJSON {
 			JSONParser parser = new JSONParser();
 			JSONObject obj = (JSONObject) parser.parse(new FileReader(rutaElementosIniciales));
 			JSONArray json = (JSONArray) obj.get("elementosIniciales");
-			ListaDisponibles lista = new ListaDisponibles();
+			lista = new ListaDisponibles();
 			for (int i = 0; i < json.size(); i++) {
 				JSONObject object = (JSONObject) json.get(i);
 				

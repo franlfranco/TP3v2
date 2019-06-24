@@ -297,7 +297,7 @@ public class GraficaMain extends JFrame {
 	
 	public static void nuevaPartida() {
 		//Abre pantalla de nueva partida
-		GraficaNuevaPartida nuevaPartida = new GraficaNuevaPartida();
+		GraficaNuevaPartida nuevaPartida = new GraficaNuevaPartida(rutaPersonajes);
 		nuevaPartida.setVisible(true);
 		
 		//Corroboramos si se completaron los datos

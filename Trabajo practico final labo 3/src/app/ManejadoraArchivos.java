@@ -1,5 +1,6 @@
 package app;
 
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -160,8 +161,10 @@ public class ManejadoraArchivos<T extends Lista> {
 				archivoEntrada.close();
 			} catch (FileNotFoundException e) {
 				System.out.println("File not found");
-			} catch (IOException e) {
-				System.out.println("IO exception personaje");
+			}catch(EOFException e) {
+				System.out.println("Fin del archivo");
+			}	catch (IOException e) {
+				System.out.println("IO exception");
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}

@@ -40,13 +40,13 @@ public class GraficaNuevaPartida extends JDialog {
 	private static int cantidadCargados = 0;
 	private static ListaDeElementos personajes;
 	private static JLabel imagenPersonaje;
-	private static String ruta = "./archivos/personajes.dat";
+	private static String rutaPersonajes;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			GraficaNuevaPartida dialog = new GraficaNuevaPartida();
+			GraficaNuevaPartida dialog = new GraficaNuevaPartida(rutaPersonajes);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -57,7 +57,8 @@ public class GraficaNuevaPartida extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public GraficaNuevaPartida() {
+	public GraficaNuevaPartida(String rutaPersonajes) {
+		this.rutaPersonajes = rutaPersonajes;
 		setModal(true);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -68,7 +69,7 @@ public class GraficaNuevaPartida extends JDialog {
 		if(!archivoCargado) {
 			personajes = new ListaDeElementos();
 			//personajes.leerDeArchivoPersonajes();
-			ManejadoraArchivos archi = new ManejadoraArchivos(personajes,ruta);
+			ManejadoraArchivos archi = new ManejadoraArchivos(personajes,rutaPersonajes);
 			archi.leerArchivoPersonajes();
 			archivoCargado=true;
 		//}

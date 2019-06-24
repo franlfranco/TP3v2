@@ -7,12 +7,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Clase contenedora de HashMap de lista de elementos totales
  *
  */
-public class ListaDeElementos implements IArchivos {
+public class ListaDeElementos extends Lista implements IArchivos {
 	HashMap <String,Elemento>listaElementos;
 	
 	/**
@@ -219,6 +220,11 @@ public class ListaDeElementos implements IArchivos {
 	
 	public int getCantidadElementos() {
 		return listaElementos.size();
+	}
+	
+	@Override
+	public Iterator getIterador() {
+		return listaElementos.entrySet().iterator();
 	}
 	
 }

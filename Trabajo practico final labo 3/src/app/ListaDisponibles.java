@@ -7,12 +7,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 /**
  * Clase contenedora de ArrayList con los elementos disponibles
  * en partida (Incluye los iniciales y los que se desbloquean)
  *
  */
-public class ListaDisponibles implements IArchivos {
+public class ListaDisponibles extends Lista implements IArchivos {
 	private ArrayList <Elemento> disponibles;
 	
 	/**
@@ -125,4 +126,11 @@ public class ListaDisponibles implements IArchivos {
 		}
 		
 	}
+	
+	@Override
+	public Iterator getIterador() {
+		return disponibles.iterator();
+		
+	}
+	
 }

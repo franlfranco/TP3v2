@@ -13,6 +13,7 @@ import app.ElementoInicial;
 import app.ListaDeElementos;
 import app.ListaDisponibles;
 import app.ManejadoraArchivos;
+import app.ManejadoraJSON;
 import app.Personaje;
 
 import javax.swing.JLabel;
@@ -33,6 +34,7 @@ public class GraficaAdmin extends JFrame {
 	private static ListaDeElementos listaDeElementosPersonajes = new ListaDeElementos();
 	private static ArrayList<String> codigoAccesoPersonajes = new ArrayList<String>();
 	private static ManejadoraArchivos manejadoraArchivos;
+	private static ManejadoraJSON manejadoraJSON;
 	private static List list_iniciales;
 	private static List list_compuestos;
 	private static List list_personajes;
@@ -70,6 +72,7 @@ public class GraficaAdmin extends JFrame {
 		this.rutaIniciales = rutaIniciales;
 		this.rutaCompuestos = rutaCompuestos;
 		this.rutaPersonajes = rutaPersonajes;
+		manejadoraJSON = new ManejadoraJSON(listaDisponibles);
 		setTitle("Modo admin");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 632, 487);
@@ -365,6 +368,34 @@ public class GraficaAdmin extends JFrame {
 		JLabel lblCodigoAcceso = new JLabel("Codigo acceso");
 		lblCodigoAcceso.setBounds(310, 235, 74, 14);
 		contentPane.add(lblCodigoAcceso);
+		/**
+		 * Carga del archivo JSON a la listaDisponibles
+		 */
+		JButton btnCargar = new JButton("Cargar");
+		btnCargar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listaDisponibles=manejadoraJSON.leerArchivoJSON();
+				actualizarIniciales();
+			}
+		});
+		btnCargar.setBounds(374, 67, 89, 23);
+		contentPane.add(btnCargar);
+		
+		/**
+		 * Guarda al archivo JSON de la listaDisponibles
+		 */
+		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				manejadoraJSON.generarArchivoJSON();
+			}
+		});
+		btnGuardar.setBounds(374, 98, 89, 23);
+		contentPane.add(btnGuardar);
+		
+		JLabel lblArchivoJson = new JLabel("Archivo JSON");
+		lblArchivoJson.setBounds(370, 35, 110, 14);
+		contentPane.add(lblArchivoJson);
 	}
 
 	/**

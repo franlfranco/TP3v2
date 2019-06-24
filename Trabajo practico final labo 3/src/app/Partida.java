@@ -102,6 +102,10 @@ public class Partida {
 		return listaDisponibles.getColeccion();
 	}
 	
+	/**
+	 * Retorna la coleccion ListaDisponibles de los elementos ya desbloqueados
+	 * @return ListaDisponibles
+	 */
 	public ListaDisponibles getListaDisponibles() {
 		return listaDisponibles;
 	}
@@ -133,27 +137,41 @@ public class Partida {
 	}
 	
 	/**
-	 * Carga en la lista de disponibles, los elementos iniciales definidos
-	 * en archivos.
-	 * @param listaDisponibles
+	 * 
+	 * @return nombre del personaje objetivo (String)
 	 */
-	
 	public String getNombrePersonajeObjetivo() {
 		return personaje.getNombreElemento();
 	}
 	
+	/**
+	 * 
+	 * @return personaje objetivo (Personaje)
+	 */
 	public Personaje getPersonaje() {
 		return personaje;
 	}
 	
+	/**
+	 * 
+	 * @return Controlador del cronometro (HiloCronometro)
+	 */
 	public HiloCronometro getCronometro() {
 		return cronometro;
 	}
 	
+	/**
+	 * 
+	 * @return String del tiempo. Formato 00:00:00
+	 */
 	public String getTimer() {
 		return cronometro.getTimer();
 	}
 	
+	/**
+	 * Reemplaza el crontrolador del cronometro actual, con el nuevo
+	 * @param cronometro nuevo
+	 */
 	public void setCronometro(HiloCronometro cronometro) {
 		this.cronometro = cronometro;
 	}

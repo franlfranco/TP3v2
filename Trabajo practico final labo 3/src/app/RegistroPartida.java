@@ -3,9 +3,8 @@ package app;
 import java.io.Serializable;
 
 /**
- * Clase que guarda la información de una partida
- * finalizada. No se pueden cambiar los datos
- * una vez inicializado el registro (Solo métodos get).
+ * Clase que guarda la información de una partida finalizada. No se pueden
+ * cambiar los datos una vez inicializado el registro (Solo métodos get).
  *
  */
 public class RegistroPartida implements Serializable {
@@ -23,15 +22,16 @@ public class RegistroPartida implements Serializable {
 		timer = "00 : 00 : 00";
 		puntaje = 0;
 	}
-	
+
 	/**
 	 * Constructor de partida
+	 * 
 	 * @param nombreJugador
 	 * @param personajeObjetivo
 	 * @param timer
 	 * @param puntaje
 	 */
-	public RegistroPartida(String nombreJugador,String personajeObjetivo,String timer,int puntaje) {
+	public RegistroPartida(String nombreJugador, String personajeObjetivo, String timer, int puntaje) {
 		this.nombreJugador = nombreJugador;
 		this.personajeObjetivo = personajeObjetivo;
 		this.timer = timer;
@@ -69,20 +69,27 @@ public class RegistroPartida implements Serializable {
 	public int getPuntaje() {
 		return puntaje;
 	}
-	
+
+	/**
+	 * Compara los registros de partida
+	 * 
+	 * @param b
+	 * @return -1 si tardo mas A, 1 si fue B, 0 si tardaron lo mismo
+	 */
 	public int compareTo(RegistroPartida b) {
-		if(getPuntaje()>b.getPuntaje())
+		if (getPuntaje() > b.getPuntaje())
 			return -1;
-		else if(getPuntaje()<b.getPuntaje())
+		else if (getPuntaje() < b.getPuntaje())
 			return 1;
 		return 0;
 	}
 
+	/**
+	 * @return String con formato: NombreDelJugador - 00:00:00
+	 */
 	@Override
 	public String toString() {
-		return ""+getNombreJugador()+" - "+getTimer();
+		return "" + getNombreJugador() + " - " + getTimer();
 	}
-	
 
-	
 }

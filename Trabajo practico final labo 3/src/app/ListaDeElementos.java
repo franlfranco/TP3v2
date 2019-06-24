@@ -72,159 +72,27 @@ public class ListaDeElementos extends Lista {
 			return true;
 		else return false;
 	}
-	
-		
+
 	/**
-	 * Lee de los archivos elementosCompuestos.dat y personajes.dat para cargar a la lista
-	 *//*
-	@Override
-	public void leerDeArchivo() {
-
-		leerDeArchivoCompuestos();
-		leerDeArchivoPersonajes();
-		
-	}
-
-	
-	public void leerDeArchivoPersonajes() {
-		ObjectInputStream objetoEntrada;
-		ObjectInputStream registroEntrada;
-		FileInputStream archivoEntrada;
-		try {
-			archivoEntrada = new FileInputStream("./archivos/personajes.dat");
-			objetoEntrada = new ObjectInputStream(archivoEntrada);
-			registroEntrada = new ObjectInputStream(archivoEntrada);
-
-			Personaje aux = (Personaje)objetoEntrada.readObject();
-			aux.inicializarlistaPartidas();
-			RegistroPartida aux2;
-			while(aux!=null) {
-				for (int i = 0;i<aux.getCantRegistros();i++) {
-					aux2 = (RegistroPartida)registroEntrada.readObject();
-					aux.cargarPuntajes(aux2);
-				}
-				listaElementos.put(aux.getCodigoAcceso(), aux);
-				aux=(Personaje)objetoEntrada.readObject();
-				if(aux!=null)
-				aux.inicializarlistaPartidas();
-			}
-			objetoEntrada.close();
-			archivoEntrada.close();
-		}catch(FileNotFoundException e) {
-			
-		}catch(IOException e) {
-			
-		} catch (ClassNotFoundException e) {
-
-		}
-	}
-
-	public void leerDeArchivoCompuestos() {
-		ObjectInputStream objetoEntrada;
-		FileInputStream archivoEntrada;
-		try {
-			archivoEntrada = new FileInputStream("./archivos/elementosCompuestos.dat");
-			objetoEntrada = new ObjectInputStream(archivoEntrada);
-
-			ElementoCompuesto aux = (ElementoCompuesto)objetoEntrada.readObject();
-			while(aux!=null) {
-				listaElementos.put(aux.getCodigoAcceso(), aux);
-				aux=(ElementoCompuesto)objetoEntrada.readObject();
-			}
-			objetoEntrada.close();
-			archivoEntrada.close();
-		}catch(FileNotFoundException e) {
-			
-		}catch(IOException e) {
-			
-		} catch (ClassNotFoundException e) {
-
-		}
-	}
-	*/
-	/**
-	 * Carga a los archivos elementosCompuestos.dat y personajes.dat a partir de la lista de elementos
+	 * 
+	 * @return Hashmap para uso de iteración
 	 */
-	/*
-	@Override
-	public void cargarArchivo() {
-		cargarArchivoCompuestos();
-		cargarArchivoPersonajes();
-	}
-	
-	
-	public void cargarArchivoCompuestos() {
-		FileOutputStream archivoSalidaCompuestos = null;
-		ObjectOutputStream objetoSalidaCompuestos = null;
-		
-		try {
-			archivoSalidaCompuestos = new FileOutputStream("./archivos/elementosCompuestos.dat");
-			objetoSalidaCompuestos = new ObjectOutputStream(archivoSalidaCompuestos);
-			ElementoCompuesto aux = null;
-			
-			for(String key : listaElementos.keySet()){ //Fuente StackOverFlow (Iterar en map a traves del key
-				if(!(listaElementos.get(key) instanceof Personaje)) {
-					aux=(ElementoCompuesto)listaElementos.get(key);
-					objetoSalidaCompuestos.writeObject(aux);
-				}
-			}
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found");
-		} catch (IOException e) {
-			System.out.println("IO exception");
-		}finally {
-			try {
-				objetoSalidaCompuestos.close();
-				archivoSalidaCompuestos.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	public void cargarArchivoPersonajes() {
-		FileOutputStream archivoSalidaPersonajes = null;
-		ObjectOutputStream objetoSalidaPersonajes = null;
-		ObjectOutputStream objetoSalidaRegistros = null;
-		
-		try {
-			archivoSalidaPersonajes = new FileOutputStream("./archivos/personajes.dat");
-			objetoSalidaPersonajes = new ObjectOutputStream(archivoSalidaPersonajes);
-			objetoSalidaRegistros = new ObjectOutputStream(archivoSalidaPersonajes);
-			Personaje aux = null;
-			for(String key : listaElementos.keySet()){ //Fuente StackOverFlow (Iterar en map a traves del key
-				if(listaElementos.get(key) instanceof Personaje) {
-					aux=(Personaje)listaElementos.get(key);
-					objetoSalidaPersonajes.writeObject(aux);
-					System.out.println("Graba un pj");
-					if(aux.getCantRegistros()>0)
-					for(RegistroPartida r : aux.getColeccion()) {
-						objetoSalidaRegistros.writeObject(r);
-					}
-				}
-			}
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found");
-		} catch (IOException e) {
-			System.out.println("IO exception personaje");
-		}finally {
-			try {
-				objetoSalidaPersonajes.close();
-				archivoSalidaPersonajes.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	*/
 	public HashMap<String,Elemento> getColeccion(){
 		return listaElementos;
 	}
 	
+	/**
+	 * 
+	 * @return cantidad de elementos cargados en la lista
+	 */
 	public int getCantidadElementos() {
 		return listaElementos.size();
 	}
 	
+	/**
+	 * Implementacion de getIterador
+	 * @return iterador necesario para recorrer
+	 */
 	@Override
 	public Iterator getIterador() {
 		return listaElementos.entrySet().iterator();

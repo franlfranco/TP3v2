@@ -71,59 +71,10 @@ public class ListaDisponibles extends Lista {
 		return false;
 	}
 
-/*
-	@Override
-	public void leerDeArchivo() {
-		FileInputStream archivoEntrada;
-		ObjectInputStream objetoEntrada;
-		try {
-			archivoEntrada= new FileInputStream("./archivos/elementosIniciales.dat");
-			objetoEntrada = new ObjectInputStream(archivoEntrada);
-			ElementoInicial aux=(ElementoInicial)objetoEntrada.readObject();
-			while(aux!=null) {
-				disponibles.add(aux);
-				aux=(ElementoInicial)objetoEntrada.readObject();
-			}
-			objetoEntrada.close();
-			archivoEntrada.close();
-		}catch(FileNotFoundException e) {
-			
-		}catch(IOException e) {
-			
-		} catch (ClassNotFoundException e) {
-
-		}
-	}
-
-
-	@Override
-	public void cargarArchivo() {
-		FileOutputStream archivoSalida = null;
-		ObjectOutputStream objetoSalida = null;
-		try {
-			archivoSalida = new FileOutputStream("./archivos/elementosIniciales.dat");
-			objetoSalida = new ObjectOutputStream(archivoSalida);
-			for(Elemento e : disponibles) { 
-				objetoSalida.writeObject(e);
-			}
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			try {
-				objetoSalida.close();
-				archivoSalida.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-	}
-	*/
-	
+	/**
+	 * Implementacion de getIterador
+	 * @return iterador necesario para recorrer
+	 */
 	@Override
 	public Iterator getIterador() {
 		return disponibles.iterator();

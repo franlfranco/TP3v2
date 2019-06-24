@@ -21,20 +21,9 @@ public class ManejadoraArchivos<T extends Lista> {
 		it = lista.getIterador();
 	}
 
-	/*
-	 * public void cargarArchivo() { FileOutputStream fos = null; ObjectOutputStream
-	 * oos = null; try { fos = new FileOutputStream(ruta); oos = new
-	 * ObjectOutputStream(fos); while (it.hasNext()) { elemento = (E) it.next();
-	 * oos.writeObject(elemento); if (elemento instanceof Personaje) { if
-	 * (((Personaje) elemento).getCantRegistros() > 0) { for (RegistroPartida r :
-	 * ((Personaje) elemento).getColeccion()) { oos.writeObject(r); } } } } } catch
-	 * (FileNotFoundException e) { System.out.println(e.getMessage());
-	 * System.out.println("Pito"); } catch (IOException e) {
-	 * System.out.println(e.getMessage()); System.out.println("caca"); } finally {
-	 * try { oos.close(); fos.close(); } catch (IOException e) {
-	 * System.out.println(e.getMessage()); System.out.println("Culo"); } } }
+	/**
+	 * Carga del archivo los ElementosIniciales y los ElementosCompuestos de la ruta especificada
 	 */
-
 	public void cargarArchivo() {
 		FileOutputStream archivoSalida = null;
 		ObjectOutputStream objetoSalida = null;
@@ -67,6 +56,10 @@ public class ManejadoraArchivos<T extends Lista> {
 		}
 	}
 
+	/**
+	 * Carga del archivo los Personajes de la ruta especificada. SOLO PERSONAJES
+	 * Si se intenta cargar ElementosIniciales, no hará nada.
+	 */
 	public void cargarArchivoPersonajes() {
 		if(lista instanceof ListaDeElementos) {
 			FileOutputStream archivoSalidaPersonajes = null;
@@ -76,19 +69,6 @@ public class ManejadoraArchivos<T extends Lista> {
 				archivoSalidaPersonajes = new FileOutputStream(ruta);
 				objetoSalidaPersonajes = new ObjectOutputStream(archivoSalidaPersonajes);
 				objetoSalidaRegistros = new ObjectOutputStream(archivoSalidaPersonajes);
-				/*Personaje aux = null;
-				while(it.hasNext()) {
-					Map.Entry<String, ElementoCompuesto> e = (Map.Entry<String, ElementoCompuesto>)it.next();
-					aux=(Personaje) ((ListaDeElementos) lista).getElemento(e.getKey());
-					objetoSalidaPersonajes.writeObject(aux);
-					//aux=(ElementoCompuesto)it.next();
-					//objetoSalidaPersonajes.writeObject(aux);
-					if(aux.getCantRegistros()>0) {
-						for(RegistroPartida r : aux.getColeccion()) {
-							objetoSalidaRegistros.writeObject(r);
-						}
-					}
-				}*/
 				ElementoCompuesto aux = null;
 				while(it.hasNext()) {
 					Map.Entry<String, ElementoCompuesto> e = (Map.Entry<String, ElementoCompuesto>)it.next();
@@ -119,6 +99,9 @@ public class ManejadoraArchivos<T extends Lista> {
 		}
 	}
 	
+	/**
+	 * Lee del archivo los ElementosIniciales y los ElementosCompuestos de la ruta especificada
+	 */
 	public void leerArchivo() {
 		FileInputStream fis;
 		ObjectInputStream ois;
@@ -150,6 +133,10 @@ public class ManejadoraArchivos<T extends Lista> {
 		}
 	}
 
+	/**
+	 * Lee del archivo los Personajes de la ruta especificada. SOLO PERSONAJES
+	 * Si se intenta leer ElementosIniciales, no hará nada.
+	 */
 	public void leerArchivoPersonajes() {
 		ObjectInputStream objetoEntrada;
 		ObjectInputStream registroEntrada;
@@ -188,6 +175,10 @@ public class ManejadoraArchivos<T extends Lista> {
 		}
 	}
 
+	/**
+	 * 
+	 * @return String con ruta del archivo
+	 */
 	public String getRuta() {
 		return ruta;
 	}

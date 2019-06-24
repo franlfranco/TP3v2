@@ -13,7 +13,7 @@ import java.util.Iterator;
  * en partida (Incluye los iniciales y los que se desbloquean)
  *
  */
-public class ListaDisponibles extends Lista implements IArchivos {
+public class ListaDisponibles extends Lista {
 	private ArrayList <Elemento> disponibles;
 	
 	/**
@@ -71,9 +71,7 @@ public class ListaDisponibles extends Lista implements IArchivos {
 		return false;
 	}
 
-	/**
-	 * Lee del archivo elementosIniciales.dat y lo agrega al ArrayList
-	 */
+/*
 	@Override
 	public void leerDeArchivo() {
 		FileInputStream archivoEntrada;
@@ -97,9 +95,7 @@ public class ListaDisponibles extends Lista implements IArchivos {
 		}
 	}
 
-	/**
-	 * Carga a partir del ArrayList al archivo elementosIniciales.dat
-	 */
+
 	@Override
 	public void cargarArchivo() {
 		FileOutputStream archivoSalida = null;
@@ -126,6 +122,7 @@ public class ListaDisponibles extends Lista implements IArchivos {
 		}
 		
 	}
+	*/
 	
 	@Override
 	public Iterator getIterador() {

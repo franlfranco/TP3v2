@@ -79,7 +79,8 @@ public class GraficaTopMejores extends JDialog {
 		
 		personajeObjetivo.setBounds(300, 231, 124, 20);
 			personajes = new ListaDeElementos();
-			personajes.leerDeArchivoPersonajes();
+			manejadoraArchivos = new ManejadoraArchivos(personajes,rutaPersonajes);
+			manejadoraArchivos.leerArchivoPersonajes();
 			if(personajes.getCantidadElementos()==0) {
 				personajeObjetivo.addItem(new Personaje("vacio","vacio","vacio"));
 			}else {

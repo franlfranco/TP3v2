@@ -13,7 +13,7 @@ import java.util.Iterator;
  * Clase contenedora de HashMap de lista de elementos totales
  *
  */
-public class ListaDeElementos extends Lista implements IArchivos {
+public class ListaDeElementos extends Lista {
 	HashMap <String,Elemento>listaElementos;
 	
 	/**
@@ -73,9 +73,10 @@ public class ListaDeElementos extends Lista implements IArchivos {
 		else return false;
 	}
 	
+		
 	/**
 	 * Lee de los archivos elementosCompuestos.dat y personajes.dat para cargar a la lista
-	 */
+	 *//*
 	@Override
 	public void leerDeArchivo() {
 
@@ -84,6 +85,7 @@ public class ListaDeElementos extends Lista implements IArchivos {
 		
 	}
 
+	
 	public void leerDeArchivoPersonajes() {
 		ObjectInputStream objetoEntrada;
 		ObjectInputStream registroEntrada;
@@ -139,10 +141,11 @@ public class ListaDeElementos extends Lista implements IArchivos {
 
 		}
 	}
-	
+	*/
 	/**
 	 * Carga a los archivos elementosCompuestos.dat y personajes.dat a partir de la lista de elementos
 	 */
+	/*
 	@Override
 	public void cargarArchivo() {
 		cargarArchivoCompuestos();
@@ -213,7 +216,7 @@ public class ListaDeElementos extends Lista implements IArchivos {
 			}
 		}
 	}
-	
+	*/
 	public HashMap<String,Elemento> getColeccion(){
 		return listaElementos;
 	}

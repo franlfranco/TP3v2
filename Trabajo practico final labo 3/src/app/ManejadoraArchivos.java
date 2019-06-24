@@ -76,7 +76,7 @@ public class ManejadoraArchivos<T extends Lista> {
 				archivoSalidaPersonajes = new FileOutputStream(ruta);
 				objetoSalidaPersonajes = new ObjectOutputStream(archivoSalidaPersonajes);
 				objetoSalidaRegistros = new ObjectOutputStream(archivoSalidaPersonajes);
-				Personaje aux = null;
+				/*Personaje aux = null;
 				while(it.hasNext()) {
 					Map.Entry<String, ElementoCompuesto> e = (Map.Entry<String, ElementoCompuesto>)it.next();
 					aux=(Personaje) ((ListaDeElementos) lista).getElemento(e.getKey());
@@ -86,6 +86,21 @@ public class ManejadoraArchivos<T extends Lista> {
 					if(aux.getCantRegistros()>0) {
 						for(RegistroPartida r : aux.getColeccion()) {
 							objetoSalidaRegistros.writeObject(r);
+						}
+					}
+				}*/
+				ElementoCompuesto aux = null;
+				while(it.hasNext()) {
+					Map.Entry<String, ElementoCompuesto> e = (Map.Entry<String, ElementoCompuesto>)it.next();
+					aux=(ElementoCompuesto) ((ListaDeElementos) lista).getElemento(e.getKey());
+					if(aux instanceof Personaje) {
+						objetoSalidaPersonajes.writeObject(aux);
+						//aux=(ElementoCompuesto)it.next();
+						//objetoSalidaPersonajes.writeObject(aux);
+						if(((Personaje)aux).getCantRegistros()>0) {
+							for(RegistroPartida r : ((Personaje)aux).getColeccion()) {
+								objetoSalidaRegistros.writeObject(r);
+							}
 						}
 					}
 				}

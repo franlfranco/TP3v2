@@ -41,12 +41,13 @@ public class GraficaNuevaPartida extends JDialog {
 	private static ListaDeElementos personajes;
 	private static JLabel imagenPersonaje;
 	private static String rutaPersonajes;
+	private static String rutaIniciales;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			GraficaNuevaPartida dialog = new GraficaNuevaPartida(rutaPersonajes);
+			GraficaNuevaPartida dialog = new GraficaNuevaPartida(rutaPersonajes,rutaIniciales);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -57,8 +58,9 @@ public class GraficaNuevaPartida extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public GraficaNuevaPartida(String rutaPersonajes) {
+	public GraficaNuevaPartida(String rutaPersonajes,String rutaIniciales) {
 		this.rutaPersonajes = rutaPersonajes;
+		this.rutaIniciales = rutaIniciales;
 		setModal(true);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -138,7 +140,7 @@ public class GraficaNuevaPartida extends JDialog {
 							}else{
 								personajeObjetivo = (Personaje)comboBox.getItemAt(comboBox.getSelectedIndex());
 							}
-							partidaNueva = new Partida(personajeObjetivo,nombreJugador);
+							partidaNueva = new Partida(personajeObjetivo,nombreJugador,rutaIniciales);
 							dispose();
 						}else
 							JOptionPane.showMessageDialog(null, "Por favor ingrese un nombre");

@@ -297,7 +297,7 @@ public class GraficaMain extends JFrame {
 	
 	public static void nuevaPartida() {
 		//Abre pantalla de nueva partida
-		GraficaNuevaPartida nuevaPartida = new GraficaNuevaPartida(rutaPersonajes);
+		GraficaNuevaPartida nuevaPartida = new GraficaNuevaPartida(rutaPersonajes,rutaIniciales);
 		nuevaPartida.setVisible(true);
 		
 		//Corroboramos si se completaron los datos
@@ -403,7 +403,8 @@ public class GraficaMain extends JFrame {
 		System.out.println(nuevo.toString());
 		Personaje ref = (Personaje)listaDeElementos.getElemento(partida.getPersonaje().getCodigoAcceso());
 		ref.nuevoPuntaje(nuevo);
-		listaDeElementos.cargarArchivoPersonajes();
+		manejadoraArchivos = new ManejadoraArchivos(listaDeElementos,rutaPersonajes);
+		manejadoraArchivos.cargarArchivoPersonajes();
 		System.out.println("Este personaje tiene : "+ref.getCantRegistros()+" registros de juego");
 	}
 }

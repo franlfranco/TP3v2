@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Iterator;
+import java.util.Map;
 
 public class ManejadoraArchivos<T extends Lista, E> {
 	private T lista;
@@ -41,7 +42,15 @@ public class ManejadoraArchivos<T extends Lista, E> {
 			archivoSalida = new FileOutputStream(ruta);
 			objetoSalida = new ObjectOutputStream(archivoSalida);
 			while (it.hasNext()) {
-				objetoSalida.writeObject(it.next());
+				if(lista instanceof ListaDisponibles) {
+					ElementoInicial aux = (ElementoInicial)it.next();
+					objetoSalida.writeObject(aux);
+				}else if(lista instanceof ListaDeElementos) {
+					Map.Entry<String, ElementoCompuesto> e = (Map.Entry<String, ElementoCompuesto>)it.next();
+					ElementoCompuesto aux2=(ElementoCompuesto) ((ListaDeElementos) lista).getElemento(e.getKey());
+					objetoSalida.writeObject(aux2);
+				}
+				
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -67,14 +76,23 @@ public class ManejadoraArchivos<T extends Lista, E> {
 				archivoSalidaPersonajes = new FileOutputStream(ruta);
 				objetoSalidaPersonajes = new ObjectOutputStream(archivoSalidaPersonajes);
 				objetoSalidaRegistros = new ObjectOutputStream(archivoSalidaPersonajes);
-				ElementoCompuesto aux = null;
+				Personaje aux = null;
 				while(it.hasNext()) {
-					aux=(ElementoCompuesto)it.next();
+					Map.Entry<String, ElementoCompuesto> e = (Map.Entry<String, ElementoCompuesto>)it.next();
+					aux=(Personaje) ((ListaDeElementos) lista).getElemento(e.getKey());
 					objetoSalidaPersonajes.writeObject(aux);
-					if(((Personaje)aux).getCantRegistros()>0)
-						for(RegistroPartida r : ((Personaje)aux).getColeccion()) {
+					//aux=(ElementoCompuesto)it.next();
+					//objetoSalidaPersonajes.writeObject(aux);
+					if(aux.getCantRegistros()>0) {
+						for(RegistroPartida r : aux.getColeccion()) {
 							objetoSalidaRegistros.writeObject(r);
 						}
+					}
+					/*
+					if(((Personaje)aux2).getCantRegistros()>0)
+						for(RegistroPartida r : ((Personaje)aux2).getColeccion()) {
+							objetoSalidaRegistros.writeObject(r);
+						}*/
 				}
 			} catch (FileNotFoundException e) {
 				System.out.println("File not found");

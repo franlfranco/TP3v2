@@ -17,7 +17,7 @@ import org.json.simple.parser.ParseException;
  * Clase que genera, almacena y lee JSON.
  * Contiene una lista y una ruta para crear el archivo.
  */
-public class ManejadoraJSON {
+public class ManejadoraJSON implements IManejadoras {
 
 	ListaDisponibles lista;
 	JSONObject root;
@@ -58,7 +58,7 @@ public class ManejadoraJSON {
 	 * Crea archivo y le carga un JSON 
 	 * Llama a agregarAJSON()
 	 */
-	public void generarArchivoJSON() {
+	public void cargarArchivo() {
 		agregarAJSON();
 
 		try (PrintWriter writer = new PrintWriter(archivo)) {
@@ -73,7 +73,7 @@ public class ManejadoraJSON {
 	 * La ruta del archivo esta contenida en la misma clase.
 	 * @return lista de elementos iniciales
 	 */
-	public ListaDisponibles leerArchivoJSON() {
+	public void leerArchivo() {
 		try {
 			JSONParser parser = new JSONParser();
 			JSONObject obj = (JSONObject) parser.parse(new FileReader(rutaElementosIniciales));
@@ -90,6 +90,15 @@ public class ManejadoraJSON {
 		} catch (IOException | ParseException e) {
 			System.out.println(e.toString());
 		}
+	}
+	
+	/**
+	 * LeeDeArchivo() y retorna la lista
+	 * @return lista del archivo JSON
+	 */
+	public ListaDisponibles getLista() {
+		leerArchivo();
 		return lista;
 	}
+	
 }

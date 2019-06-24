@@ -10,7 +10,7 @@ import java.io.ObjectOutputStream;
 import java.util.Iterator;
 import java.util.Map;
 
-public class ManejadoraArchivos<T extends Lista> {
+public class ManejadoraArchivos<T extends Lista> implements IManejadoras {
 	private T lista;
 	private String ruta;
 	private Iterator it;

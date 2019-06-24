@@ -374,7 +374,7 @@ public class GraficaAdmin extends JFrame {
 		JButton btnCargar = new JButton("Cargar");
 		btnCargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				listaDisponibles=manejadoraJSON.leerArchivoJSON();
+				listaDisponibles=manejadoraJSON.getLista();
 				actualizarIniciales();
 			}
 		});
@@ -387,7 +387,7 @@ public class GraficaAdmin extends JFrame {
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				manejadoraJSON.generarArchivoJSON();
+				manejadoraJSON.cargarArchivo();
 			}
 		});
 		btnGuardar.setBounds(374, 98, 89, 23);

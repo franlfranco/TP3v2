@@ -41,12 +41,14 @@ public class GraficaNuevaPartida extends JDialog {
 	private static ListaDeElementos personajes;
 	private static JLabel imagenPersonaje;
 	private static String rutaPersonajes;
+	private static String rutaIniciales;
+
 	/**
-	 * Launch the application.
+	 * Main de la interfaz
 	 */
 	public static void main(String[] args) {
 		try {
-			GraficaNuevaPartida dialog = new GraficaNuevaPartida(rutaPersonajes);
+			GraficaNuevaPartida dialog = new GraficaNuevaPartida(rutaPersonajes, rutaIniciales);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -57,70 +59,75 @@ public class GraficaNuevaPartida extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public GraficaNuevaPartida(String rutaPersonajes) {
+	public GraficaNuevaPartida(String rutaPersonajes, String rutaIniciales) {
 		this.rutaPersonajes = rutaPersonajes;
+		this.rutaIniciales = rutaIniciales;
 		setModal(true);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
-		if(!archivoCargado) {
+
+		if (!archivoCargado) {
 			personajes = new ListaDeElementos();
-			//personajes.leerDeArchivoPersonajes();
-			ManejadoraArchivos archi = new ManejadoraArchivos(personajes,rutaPersonajes);
+			ManejadoraArchivos archi = new ManejadoraArchivos(personajes, rutaPersonajes);
 			archi.leerArchivoPersonajes();
-			archivoCargado=true;
-		//}
-		for(String key : personajes.getColeccion().keySet()){
-			comboBox.addItem(personajes.getElemento(key));
-			cantidadCargados++;
+			archivoCargado = true;
+			for (String key : personajes.getColeccion().keySet()) {
+				comboBox.addItem(personajes.getElemento(key));
+				cantidadCargados++;
 			}
 		}
-		
-		
+
 		tf_nombre = new JTextField();
 		tf_nombre.setBounds(29, 54, 231, 20);
 		contentPanel.add(tf_nombre);
 		tf_nombre.setColumns(10);
-		
+
+		/**
+		 * Actualiza la imagen de los personajes objetivos
+		 */
 		JLabel lblNombreDelJugador = new JLabel("Nombre del jugador :");
 		lblNombreDelJugador.setBounds(29, 23, 174, 20);
 		contentPanel.add(lblNombreDelJugador);
 		comboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				int state = e.getStateChange();
-				if(state == e.SELECTED) {
-					Personaje seleccionado = (Personaje)e.getItem();
+				if (state == e.SELECTED) {
+					Personaje seleccionado = (Personaje) e.getItem();
 					try {
-						imagenPersonaje.setIcon(new ImageIcon(GraficaNuevaPartida.class.getResource("/appImagenes/"+seleccionado.getNombreElemento()+".jpg")));
-					}catch(Exception ex) {
+						imagenPersonaje.setIcon(new ImageIcon(GraficaNuevaPartida.class
+								.getResource("/appImagenes/" + seleccionado.getNombreElemento() + ".jpg")));
+					} catch (Exception ex) {
 						System.out.println("El seleccionado no tiene imagen");
-						imagenPersonaje.setIcon(new ImageIcon(GraficaNuevaPartida.class.getResource("/appImagenes/noImage140x140.png")));
+						imagenPersonaje.setIcon(new ImageIcon(
+								GraficaNuevaPartida.class.getResource("/appImagenes/noImage140x140.png")));
 					}
 				}
 			}
 		});
-		
+
 		comboBox.setBounds(29, 126, 149, 20);
 		contentPanel.add(comboBox);
-		
+
 		JLabel lblPersonajeObjetivo = new JLabel("Personaje objetivo: ");
 		lblPersonajeObjetivo.setBounds(29, 101, 123, 14);
 		contentPanel.add(lblPersonajeObjetivo);
-		
+
 		JRadioButton random = new JRadioButton("Aleatorio");
 		random.setBounds(29, 173, 109, 23);
 		contentPanel.add(random);
-		
+
 		imagenPersonaje = new JLabel("");
 		imagenPersonaje.setBounds(286, 23, 140, 140);
-		Personaje seleccionado = (Personaje)comboBox.getSelectedItem();
+		Personaje seleccionado = (Personaje) comboBox.getSelectedItem();
 		try {
-			imagenPersonaje.setIcon(new ImageIcon(GraficaNuevaPartida.class.getResource("/appImagenes/"+seleccionado.getNombreElemento()+".jpg")));
-		}catch(Exception ex) {
-			imagenPersonaje.setIcon(new ImageIcon(GraficaNuevaPartida.class.getResource("/appImagenes/noImage140x140.png")));
+			imagenPersonaje.setIcon(new ImageIcon(GraficaNuevaPartida.class
+					.getResource("/appImagenes/" + seleccionado.getNombreElemento() + ".jpg")));
+		} catch (Exception ex) {
+			imagenPersonaje
+					.setIcon(new ImageIcon(GraficaNuevaPartida.class.getResource("/appImagenes/noImage140x140.png")));
 		}
 		contentPanel.add(imagenPersonaje);
 		{
@@ -131,18 +138,18 @@ public class GraficaNuevaPartida extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						if(!tf_nombre.getText().equals("")) {
-							nombreJugador=tf_nombre.getText();
-							if(random.isSelected()) {
-								personajeObjetivo = (Personaje)comboBox.getItemAt(getNumeroRandom(cantidadCargados));
-							}else{
-								personajeObjetivo = (Personaje)comboBox.getItemAt(comboBox.getSelectedIndex());
+						if (!tf_nombre.getText().equals("")) {
+							nombreJugador = tf_nombre.getText();
+							if (random.isSelected()) {
+								personajeObjetivo = (Personaje) comboBox.getItemAt(getNumeroRandom(cantidadCargados));
+							} else {
+								personajeObjetivo = (Personaje) comboBox.getItemAt(comboBox.getSelectedIndex());
 							}
-							partidaNueva = new Partida(personajeObjetivo,nombreJugador);
+							partidaNueva = new Partida(personajeObjetivo, nombreJugador, rutaIniciales);
 							dispose();
-						}else
+						} else
 							JOptionPane.showMessageDialog(null, "Por favor ingrese un nombre");
-						
+
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -162,13 +169,24 @@ public class GraficaNuevaPartida extends JDialog {
 			}
 		}
 	}
-	
+
+	/**
+	 * Retorna la partida nueva
+	 * 
+	 * @return null en caso de que no se completara la petición
+	 */
 	public Partida getPartidaNueva() {
 		return partidaNueva;
 	}
-	
+
+	/**
+	 * Retorna numero aleatorio
+	 * 
+	 * @param max
+	 * @return int aleatorio entre 0 y max
+	 */
 	private int getNumeroRandom(int max) {
-			Random r = new Random();
-			return r.nextInt(max);
+		Random r = new Random();
+		return r.nextInt(max);
 	}
 }

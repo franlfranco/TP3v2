@@ -13,6 +13,7 @@ import app.ElementoInicial;
 import app.ListaDeElementos;
 import app.ListaDisponibles;
 import app.ManejadoraArchivos;
+import app.ManejadoraJSON;
 import app.Personaje;
 
 import javax.swing.JLabel;
@@ -33,6 +34,7 @@ public class GraficaAdmin extends JFrame {
 	private static ListaDeElementos listaDeElementosPersonajes = new ListaDeElementos();
 	private static ArrayList<String> codigoAccesoPersonajes = new ArrayList<String>();
 	private static ManejadoraArchivos manejadoraArchivos;
+	private static ManejadoraJSON manejadoraJSON;
 	private static List list_iniciales;
 	private static List list_compuestos;
 	private static List list_personajes;
@@ -70,6 +72,7 @@ public class GraficaAdmin extends JFrame {
 		this.rutaIniciales = rutaIniciales;
 		this.rutaCompuestos = rutaCompuestos;
 		this.rutaPersonajes = rutaPersonajes;
+		manejadoraJSON = new ManejadoraJSON(listaDisponibles);
 		setTitle("Modo admin");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 632, 487);
@@ -105,17 +108,23 @@ public class GraficaAdmin extends JFrame {
 		list_personajes.add("Cargar elementos");
 		contentPane.add(list_personajes);
 
+		/**
+		 * Guarda los cambios hechos en el archivo de Elementos iniciales
+		 */
 		Button save_iniciales = new Button("Guardar");
 		save_iniciales.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				manejadoraArchivos = new ManejadoraArchivos(listaDisponibles,rutaIniciales);
+				manejadoraArchivos = new ManejadoraArchivos(listaDisponibles, rutaIniciales);
 				manejadoraArchivos.cargarArchivo();
-				//listaDisponibles.cargarArchivo();
+				// listaDisponibles.cargarArchivo();
 			}
 		});
 		save_iniciales.setBounds(129, 87, 70, 22);
 		contentPane.add(save_iniciales);
 
+		/**
+		 * Carga el archivo de Elementos compuestos
+		 */
 		Button load_compuestos = new Button("Cargar");
 		load_compuestos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -128,6 +137,9 @@ public class GraficaAdmin extends JFrame {
 		load_compuestos.setBounds(129, 183, 70, 22);
 		contentPane.add(load_compuestos);
 
+		/**
+		 * Carga el archivo de Personajes
+		 */
 		Button load_personajes = new Button("Cargar");
 		load_personajes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -140,6 +152,9 @@ public class GraficaAdmin extends JFrame {
 		load_personajes.setBounds(129, 366, 70, 22);
 		contentPane.add(load_personajes);
 
+		/**
+		 * Carga el archivo de iniciales
+		 */
 		Button load_iniciales = new Button("Cargar");
 		load_iniciales.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -153,23 +168,29 @@ public class GraficaAdmin extends JFrame {
 		load_iniciales.setBounds(129, 65, 70, 22);
 		contentPane.add(load_iniciales);
 
+		/**
+		 * Guarda los cambios hechos en el archivo de Elementos compuestos
+		 */
 		Button save_compuestos = new Button("Guardar");
 		save_compuestos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				manejadoraArchivos = new ManejadoraArchivos(listaDeElementosCompuestos,rutaCompuestos);
+				manejadoraArchivos = new ManejadoraArchivos(listaDeElementosCompuestos, rutaCompuestos);
 				manejadoraArchivos.cargarArchivo();
-				//listaDeElementosCompuestos.cargarArchivoCompuestos();
+				// listaDeElementosCompuestos.cargarArchivoCompuestos();
 			}
 		});
 		save_compuestos.setBounds(129, 208, 70, 22);
 		contentPane.add(save_compuestos);
 
+		/**
+		 * Guarda los cambios hechos en el archivo de personajes
+		 */
 		Button save_personajes = new Button("Guardar");
 		save_personajes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				manejadoraArchivos= new ManejadoraArchivos(listaDeElementosPersonajes,rutaPersonajes);
+				manejadoraArchivos = new ManejadoraArchivos(listaDeElementosPersonajes, rutaPersonajes);
 				manejadoraArchivos.cargarArchivoPersonajes();
-				//listaDeElementosPersonajes.cargarArchivoPersonajes();
+				// listaDeElementosPersonajes.cargarArchivoPersonajes();
 			}
 		});
 		save_personajes.setBounds(129, 394, 70, 22);
@@ -209,6 +230,10 @@ public class GraficaAdmin extends JFrame {
 		contentPane.add(tf_codigoAccesoCompuesto);
 		tf_codigoAccesoCompuesto.setColumns(10);
 
+		/**
+		 * Boton: Crea y agrega a la lista, un elemento inicial nuevo
+		 * Si ya existe, no hace nada
+		 */
 		JButton bt_addInicial = new JButton("Inicial");
 		bt_addInicial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -232,6 +257,10 @@ public class GraficaAdmin extends JFrame {
 		bt_addInicial.setBounds(219, 111, 86, 23);
 		contentPane.add(bt_addInicial);
 
+		/**
+		 * Boton: Crea y agrega a la lista, un elemento compuesto nuevo
+		 * Si ya existe, no hace nada
+		 */
 		JButton bt_addCompuesto = new JButton("Compuesto");
 		bt_addCompuesto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -249,6 +278,10 @@ public class GraficaAdmin extends JFrame {
 		bt_addCompuesto.setBounds(216, 263, 89, 23);
 		contentPane.add(bt_addCompuesto);
 
+		/**
+		 * Boton: Crea y agrega a la lista, un personaje nuevo
+		 * Si ya existe, no hace nada
+		 */
 		JButton bt_addPersonaje = new JButton("Personaje");
 		bt_addPersonaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -266,6 +299,9 @@ public class GraficaAdmin extends JFrame {
 		bt_addPersonaje.setBounds(216, 297, 89, 23);
 		contentPane.add(bt_addPersonaje);
 
+		/**
+		 * Boton: Eliminar el elemento inicial seleccionado
+		 */
 		Button bt_removeInicial = new Button("Eliminar");
 		bt_removeInicial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -279,6 +315,9 @@ public class GraficaAdmin extends JFrame {
 		bt_removeInicial.setBounds(126, 112, 70, 22);
 		contentPane.add(bt_removeInicial);
 
+		/**
+		 * Boton: Eliminar el elemento compuesto seleccionado
+		 */
 		Button remove_compuestos = new Button("Eliminar");
 		remove_compuestos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -293,6 +332,9 @@ public class GraficaAdmin extends JFrame {
 		remove_compuestos.setBounds(129, 290, 70, 22);
 		contentPane.add(remove_compuestos);
 
+		/**
+		 * Boton: Eliminar el personaje seleccionado
+		 */
 		Button remove_personajes = new Button("Eliminar");
 		remove_personajes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -326,14 +368,48 @@ public class GraficaAdmin extends JFrame {
 		JLabel lblCodigoAcceso = new JLabel("Codigo acceso");
 		lblCodigoAcceso.setBounds(310, 235, 74, 14);
 		contentPane.add(lblCodigoAcceso);
+		/**
+		 * Carga del archivo JSON a la listaDisponibles
+		 */
+		JButton btnCargar = new JButton("Cargar");
+		btnCargar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listaDisponibles=manejadoraJSON.getLista();
+				actualizarIniciales();
+			}
+		});
+		btnCargar.setBounds(374, 67, 89, 23);
+		contentPane.add(btnCargar);
+		
+		/**
+		 * Guarda al archivo JSON de la listaDisponibles
+		 */
+		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				manejadoraJSON.cargarArchivo();
+			}
+		});
+		btnGuardar.setBounds(374, 98, 89, 23);
+		contentPane.add(btnGuardar);
+		
+		JLabel lblArchivoJson = new JLabel("Archivo JSON");
+		lblArchivoJson.setBounds(370, 35, 110, 14);
+		contentPane.add(lblArchivoJson);
 	}
 
+	/**
+	 * Actualiza la lista de iniciales
+	 */
 	public void actualizarIniciales() {
 		list_iniciales.removeAll();
 		for (Elemento el : listaDisponibles.getColeccion())
 			list_iniciales.add(el.getNombreElemento() + " - " + el.getCodigo());
 	}
 
+	/**
+	 * Actualiza la lista de compuestos
+	 */
 	public void actualizarCompuestos() {
 		list_compuestos.removeAll();
 		codigoAccesoCompuestos.clear();
@@ -344,6 +420,9 @@ public class GraficaAdmin extends JFrame {
 		}
 	}
 
+	/**
+	 * Actualiza la lista de personajes
+	 */
 	public void actualizarPersonajes() {
 		list_personajes.removeAll();
 		codigoAccesoPersonajes.clear();

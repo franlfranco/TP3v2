@@ -34,7 +34,7 @@ public class GraficaTopMejores extends JDialog {
 	private static String rutaPersonajes;
 	
 	/**
-	 * Launch the application.
+	 * Main de la interfaz
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -79,7 +79,8 @@ public class GraficaTopMejores extends JDialog {
 		
 		personajeObjetivo.setBounds(300, 231, 124, 20);
 			personajes = new ListaDeElementos();
-			personajes.leerDeArchivoPersonajes();
+			manejadoraArchivos = new ManejadoraArchivos(personajes,rutaPersonajes);
+			manejadoraArchivos.leerArchivoPersonajes();
 			if(personajes.getCantidadElementos()==0) {
 				personajeObjetivo.addItem(new Personaje("vacio","vacio","vacio"));
 			}else {
@@ -149,6 +150,10 @@ public class GraficaTopMejores extends JDialog {
 		
 	}
 	
+	/**
+	 * Carga los nombres records del personaje
+	 * @param aux
+	 */
 	public static void cargarTop(Personaje aux) {
 		aux = (Personaje)personajeObjetivo.getItemAt(personajeObjetivo.getSelectedIndex());
 		ListaPartidas aux2 = aux.getListaPartidas();
@@ -165,7 +170,7 @@ public class GraficaTopMejores extends JDialog {
 			top4.setText(aux2.getTop(4));
 			top5.setText(aux2.getTop(5));
 		} catch(Exception e) {
-			
+			System.out.println("Records ya cargados");
 		}
 	}
 }

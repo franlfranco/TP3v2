@@ -4,7 +4,6 @@ package app;
  * Hija de Elementos
  * Utilizada para combinar y crear Elementos Compuestos y Personajes
  */
-@SuppressWarnings("serial")
 public class ElementoInicial extends Elemento {
 	/**
 	 * Constructor sin parametros

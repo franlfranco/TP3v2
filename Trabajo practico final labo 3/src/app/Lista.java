@@ -8,6 +8,10 @@ import java.util.Iterator;
  */
 public abstract class Lista {
 
+	/**
+	 * Retorna el iterador necesario para la lista que use.
+	 * @return
+	 */
 	public Iterator getIterador() {
 		return null;
 	}

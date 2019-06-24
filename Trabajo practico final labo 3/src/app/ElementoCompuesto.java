@@ -7,7 +7,6 @@ import java.io.Serializable;
  * Hija de Elemento
  * Padre de Clase Personajes
  */
-@SuppressWarnings("serial")
 public class ElementoCompuesto extends Elemento implements Serializable {
 	private String codigoAcceso;
 	

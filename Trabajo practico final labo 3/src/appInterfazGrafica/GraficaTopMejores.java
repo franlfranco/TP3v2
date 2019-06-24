@@ -30,7 +30,8 @@ public class GraficaTopMejores extends JDialog {
 	private static JLabel top3;
 	private static JLabel top4;
 	private static JLabel top5;
-	private static String rutaPersonajes = "./archivos/personajes.dat";
+	private static ManejadoraArchivos manejadoraArchivos;
+	private static String rutaPersonajes;
 	
 	/**
 	 * Launch the application.
@@ -40,7 +41,7 @@ public class GraficaTopMejores extends JDialog {
 			public void run() {
 				try {
 					actualizarJComboBox();
-					GraficaTopMejores dialog = new GraficaTopMejores();
+					GraficaTopMejores dialog = new GraficaTopMejores(rutaPersonajes);
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
 				} catch (Exception e) {
@@ -53,7 +54,8 @@ public class GraficaTopMejores extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public GraficaTopMejores() {
+	public GraficaTopMejores(String rutaPersonajes) {
+		this.rutaPersonajes=rutaPersonajes;
 		setTitle("Mejores tiempos");
 		setModal(true);
 		setBounds(100, 100, 450, 300);
@@ -139,8 +141,7 @@ public class GraficaTopMejores extends JDialog {
 	
 	public static void actualizarJComboBox () {
 		personajeObjetivo.removeAll();
-		//personajes.leerDeArchivoPersonajes();
-		ManejadoraArchivos manejadoraArchivos = new ManejadoraArchivos(personajes,rutaPersonajes);
+		manejadoraArchivos = new ManejadoraArchivos(personajes,rutaPersonajes);
 		manejadoraArchivos.leerArchivoPersonajes();
 		for(String key : personajes.getColeccion().keySet())
 			personajeObjetivo.addItem((Personaje) personajes.getElemento(key));

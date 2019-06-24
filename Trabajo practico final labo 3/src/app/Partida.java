@@ -41,7 +41,6 @@ public class Partida {
 		this.puntajeJugador=0;
 		cronometro = new HiloCronometro(new Cronometro());
 		listaDisponibles = new ListaDisponibles ();
-		//listaDisponibles.leerDeArchivo();
 		ManejadoraArchivos archi = new ManejadoraArchivos(listaDisponibles,rutaIniciales);
 		archi.leerArchivo();
 	}

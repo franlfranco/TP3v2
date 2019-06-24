@@ -20,37 +20,77 @@ public class ManejadoraArchivos<T extends Lista, E> {
 		it = lista.getIterador();
 	}
 
+	/*
+	 * public void cargarArchivo() { FileOutputStream fos = null; ObjectOutputStream
+	 * oos = null; try { fos = new FileOutputStream(ruta); oos = new
+	 * ObjectOutputStream(fos); while (it.hasNext()) { elemento = (E) it.next();
+	 * oos.writeObject(elemento); if (elemento instanceof Personaje) { if
+	 * (((Personaje) elemento).getCantRegistros() > 0) { for (RegistroPartida r :
+	 * ((Personaje) elemento).getColeccion()) { oos.writeObject(r); } } } } } catch
+	 * (FileNotFoundException e) { System.out.println(e.getMessage());
+	 * System.out.println("Pito"); } catch (IOException e) {
+	 * System.out.println(e.getMessage()); System.out.println("caca"); } finally {
+	 * try { oos.close(); fos.close(); } catch (IOException e) {
+	 * System.out.println(e.getMessage()); System.out.println("Culo"); } } }
+	 */
+
 	public void cargarArchivo() {
-		FileOutputStream fos = null;
-		ObjectOutputStream oos = null;
+		FileOutputStream archivoSalida = null;
+		ObjectOutputStream objetoSalida = null;
 		try {
-			fos = new FileOutputStream(ruta);
-			oos = new ObjectOutputStream(fos);
+			archivoSalida = new FileOutputStream(ruta);
+			objetoSalida = new ObjectOutputStream(archivoSalida);
 			while (it.hasNext()) {
-				elemento = (E) it.next();
-				oos.writeObject(elemento);
-				if (elemento instanceof Personaje) {
-					if (((Personaje) elemento).getCantRegistros() > 0) {
-						for (RegistroPartida r : ((Personaje) elemento).getColeccion()) {
-							oos.writeObject(r);
-						}
-					}
-				}
+				objetoSalida.writeObject(it.next());
 			}
 		} catch (FileNotFoundException e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			try {
-				oos.close();
-				fos.close();
+				objetoSalida.close();
+				archivoSalida.close();
 			} catch (IOException e) {
-				System.out.println(e.getMessage());
+				e.printStackTrace();
 			}
 		}
 	}
 
+	public void cargarArchivoPersonajes() {
+		if(lista instanceof ListaDeElementos) {
+			FileOutputStream archivoSalidaPersonajes = null;
+			ObjectOutputStream objetoSalidaPersonajes = null;
+			ObjectOutputStream objetoSalidaRegistros = null;
+			try {
+				archivoSalidaPersonajes = new FileOutputStream(ruta);
+				objetoSalidaPersonajes = new ObjectOutputStream(archivoSalidaPersonajes);
+				objetoSalidaRegistros = new ObjectOutputStream(archivoSalidaPersonajes);
+				ElementoCompuesto aux = null;
+				while(it.hasNext()) {
+					aux=(ElementoCompuesto)it.next();
+					objetoSalidaPersonajes.writeObject(aux);
+					if(((Personaje)aux).getCantRegistros()>0)
+						for(RegistroPartida r : ((Personaje)aux).getColeccion()) {
+							objetoSalidaRegistros.writeObject(r);
+						}
+				}
+			} catch (FileNotFoundException e) {
+				System.out.println("File not found");
+			} catch (IOException e) {
+				System.out.println("IO exception personaje");
+			}finally {
+				try {
+					objetoSalidaPersonajes.close();
+					archivoSalidaPersonajes.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
 	public void leerArchivo() {
 		FileInputStream fis;
 		ObjectInputStream ois;

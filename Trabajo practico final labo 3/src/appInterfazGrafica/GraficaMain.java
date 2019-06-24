@@ -12,6 +12,7 @@ import app.Elemento;
 import app.HiloCronometro;
 import app.ListaDeElementos;
 import app.ListaDisponibles;
+import app.ManejadoraArchivos;
 import app.Mezcladora;
 import app.Partida;
 import app.Personaje;
@@ -60,6 +61,10 @@ public class GraficaMain extends JFrame {
 	private static AudioClip efectoNuevo;
 	private static AudioClip efectoExistente;
 	private static AudioClip partidaGanada;
+	private static ManejadoraArchivos manejadoraArchivos;
+	private static String rutaCompuestos = "./archivos/elementosCompuestos.dat";
+	private static String rutaIniciales = "./archivos/elementosIniciales.dat";
+	private static String rutaPersonajes = "./archivos/personajes.dat";
 
 
 	//Componentes graficos utilizados y sus lógicas
@@ -104,7 +109,7 @@ public class GraficaMain extends JFrame {
 		JMenuItem mntmMejoresTiempos = new JMenuItem("Mejores tiempos");
 		mntmMejoresTiempos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JDialog top = new GraficaTopMejores();
+				JDialog top = new GraficaTopMejores(rutaPersonajes);
 				top.setVisible(true);
 			}
 		});
@@ -133,7 +138,7 @@ public class GraficaMain extends JFrame {
 				try {
 					String contrasena = JOptionPane.showInputDialog(null);
 					if(contrasena.equals("1234")) {
-						JFrame admin = new GraficaAdmin();
+						JFrame admin = new GraficaAdmin(rutaIniciales,rutaCompuestos,rutaPersonajes);
 						admin.setVisible(true);
 					}else{
 						JOptionPane.showMessageDialog(null, "contrasena incorrecta");
@@ -261,12 +266,13 @@ public class GraficaMain extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					//Levantar de archivo y cargar a listaDeElementos
-					//crear la mezcladora, pasarle como parametro la listaDeElementos
-					//Levantar de archivo y cargar a listaDisponibles
 
 					listaDeElementos = new ListaDeElementos();
-					listaDeElementos.leerDeArchivo();
+					//listaDeElementos.leerDeArchivo();
+					manejadoraArchivos = new ManejadoraArchivos(listaDeElementos,rutaCompuestos);
+					manejadoraArchivos.leerArchivo();
+					manejadoraArchivos = new ManejadoraArchivos(listaDeElementos,rutaPersonajes);
+					manejadoraArchivos.leerArchivoPersonajes();
 					mezcladora = new Mezcladora(listaDeElementos);
 					JFrame main = new GraficaMain();
 					main.setVisible(true);

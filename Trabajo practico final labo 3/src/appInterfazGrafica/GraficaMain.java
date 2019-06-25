@@ -14,6 +14,7 @@ import app.ListaDeElementos;
 import app.ListaDisponibles;
 import app.ManejadoraArchivos;
 import app.Mezcladora;
+import app.NoPartidaException;
 import app.Partida;
 import app.Personaje;
 import app.RegistroPartida;
@@ -103,7 +104,11 @@ public class GraficaMain extends JFrame {
 		JMenuItem mntmNuevaPartida = new JMenuItem("Nueva Partida");
 		mntmNuevaPartida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				nuevaPartida();
+				try {
+					nuevaPartida();
+				} catch (NoPartidaException e) {
+					System.out.println(e.getMessage());
+				}
 			}
 		});
 		mnPartida.add(mntmNuevaPartida);
@@ -326,7 +331,7 @@ public class GraficaMain extends JFrame {
 		}
 	}
 
-	public static void nuevaPartida() {
+	public static void nuevaPartida() throws NoPartidaException{
 		GraficaNuevaPartida nuevaPartida = new GraficaNuevaPartida(rutaPersonajes, rutaIniciales);
 		nuevaPartida.setVisible(true);
 
@@ -370,6 +375,8 @@ public class GraficaMain extends JFrame {
 				imagenPersonaje
 						.setIcon(new ImageIcon(GraficaMain.class.getResource("/appImagenes/noImage140x140.png")));
 			}
+		} else {
+			throw new NoPartidaException("Se cancelo la partida nueva");
 		}
 
 	}

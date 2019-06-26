@@ -38,7 +38,8 @@ public class ListaDeElementos extends Lista {
 	 * @param codigoAcceso
 	 */
 	public void eliminarElemento(String codigoAcceso) {
-		listaElementos.remove(codigoAcceso);
+		if(isElemento(codigoAcceso))
+			listaElementos.remove(codigoAcceso);
 	}
 	
 	/**
@@ -47,7 +48,10 @@ public class ListaDeElementos extends Lista {
 	 * @return Elemento o null si no lo encuentra
 	 */
 	public Elemento getElemento(String codigoAcceso) {
-		return listaElementos.get(codigoAcceso);
+		if(isElemento(codigoAcceso))
+			return listaElementos.get(codigoAcceso);
+		else
+			return null;
 	}
 	
 	/**

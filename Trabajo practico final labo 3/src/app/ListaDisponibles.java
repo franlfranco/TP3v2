@@ -36,7 +36,8 @@ public class ListaDisponibles extends Lista {
 	 * Quita elemento de la lista de disponibles
 	 */
 	public void eliminar(int index) {
-		disponibles.remove(index);
+		if(index<disponibles.size())
+			disponibles.remove(index);
 	}
 	
 	/**
@@ -45,7 +46,10 @@ public class ListaDisponibles extends Lista {
 	 * @return
 	 */
 	public Elemento getElemento (int index) {
-		return disponibles.get(index);
+		if(index<disponibles.size())
+			return disponibles.get(index);
+		else
+			return null;
 	}
 	
 	/**
@@ -78,7 +82,6 @@ public class ListaDisponibles extends Lista {
 	@Override
 	public Iterator getIterador() {
 		return disponibles.iterator();
-		
 	}
 	
 }

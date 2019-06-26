@@ -136,7 +136,7 @@ public class GraficaMain extends JFrame {
 		});
 		mnTop.add(mntmMejoresTiempos);
 
-		JMenu mnAcercaDe = new JMenu("?"); // Menu de consultas
+		JMenu mnAcercaDe = new JMenu("Extras"); // Menu de consultas
 		menuBar.add(mnAcercaDe);
 		/**
 		 * sub menu musica on/off
@@ -157,7 +157,10 @@ public class GraficaMain extends JFrame {
 
 		/**
 		 * Sub menu Modo admin
+		 * Comentado para que el usuario no tenga acceso al mismo
+		 * y no comprometa al programa
 		 */
+		/*
 		JMenuItem mntmModoAdmin = new JMenuItem("Modo Admin");
 		mntmModoAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -174,7 +177,7 @@ public class GraficaMain extends JFrame {
 			}
 		});
 		mnAcercaDe.add(mntmModoAdmin);
-
+		*/
 		JMenuBar menuBar_1 = new JMenuBar();
 		menuBar.add(menuBar_1);
 		contentPane = new JPanel();

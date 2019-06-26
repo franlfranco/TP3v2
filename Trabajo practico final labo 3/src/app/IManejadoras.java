@@ -1,6 +1,10 @@
 package app;
 
-
+/**
+ * Interfaz que declara las funciones principales
+ * de las manejadoras
+ *
+ */
 public interface IManejadoras {
 	
 

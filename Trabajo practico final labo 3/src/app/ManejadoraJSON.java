@@ -13,7 +13,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /**
- * @author francisco
  * Clase que genera, almacena y lee JSON.
  * Contiene una lista y una ruta para crear el archivo.
  */

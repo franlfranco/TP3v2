@@ -1,5 +1,10 @@
 package app;
 
+/**
+ * Excepción utilizada para declarar que no
+ * se inicializó una partida
+ *
+ */
 public class NoPartidaException extends Exception {
 	String mensaje;
 	

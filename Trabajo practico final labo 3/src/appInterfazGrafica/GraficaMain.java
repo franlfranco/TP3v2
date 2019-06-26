@@ -420,7 +420,6 @@ public class GraficaMain extends JFrame {
 		}
 		if (temp3 != null) {
 			if (!partida.elementoYaDisponible(temp3)) {
-				// partida.agregarElementoDisponible(temp3);
 				listaDisponibles.agregar(temp3);
 				resultado.setText("---> " + temp3.getNombreElemento() + " <---");
 				efectoNuevo.play();

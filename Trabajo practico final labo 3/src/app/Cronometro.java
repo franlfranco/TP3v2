@@ -1,7 +1,11 @@
 package app;
 
 import javax.swing.JLabel;
-
+/**
+ * Funcionamiento principal del cronómetro
+ * (hilo que se ejecuta)
+ *
+ */
 public class Cronometro implements Runnable {
 	private int minutos;
 	private int segundos;

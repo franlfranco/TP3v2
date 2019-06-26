@@ -14,6 +14,7 @@ import app.ListaDeElementos;
 import app.ListaDisponibles;
 import app.ManejadoraArchivos;
 import app.Mezcladora;
+import app.NoPartidaException;
 import app.Partida;
 import app.Personaje;
 import app.RegistroPartida;
@@ -103,7 +104,11 @@ public class GraficaMain extends JFrame {
 		JMenuItem mntmNuevaPartida = new JMenuItem("Nueva Partida");
 		mntmNuevaPartida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				nuevaPartida();
+				try {
+					nuevaPartida();
+				} catch (NoPartidaException e) {
+					System.out.println(e.getMessage());
+				}
 			}
 		});
 		mnPartida.add(mntmNuevaPartida);
@@ -131,7 +136,7 @@ public class GraficaMain extends JFrame {
 		});
 		mnTop.add(mntmMejoresTiempos);
 
-		JMenu mnAcercaDe = new JMenu("?"); // Menu de consultas
+		JMenu mnAcercaDe = new JMenu("Extras"); // Menu de consultas
 		menuBar.add(mnAcercaDe);
 		/**
 		 * sub menu musica on/off
@@ -152,7 +157,10 @@ public class GraficaMain extends JFrame {
 
 		/**
 		 * Sub menu Modo admin
+		 * Comentado para que el usuario no tenga acceso al mismo
+		 * y no comprometa al programa
 		 */
+		/*
 		JMenuItem mntmModoAdmin = new JMenuItem("Modo Admin");
 		mntmModoAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -169,7 +177,7 @@ public class GraficaMain extends JFrame {
 			}
 		});
 		mnAcercaDe.add(mntmModoAdmin);
-
+		*/
 		JMenuBar menuBar_1 = new JMenuBar();
 		menuBar.add(menuBar_1);
 		contentPane = new JPanel();
@@ -326,7 +334,7 @@ public class GraficaMain extends JFrame {
 		}
 	}
 
-	public static void nuevaPartida() {
+	public static void nuevaPartida() throws NoPartidaException{
 		GraficaNuevaPartida nuevaPartida = new GraficaNuevaPartida(rutaPersonajes, rutaIniciales);
 		nuevaPartida.setVisible(true);
 
@@ -370,6 +378,8 @@ public class GraficaMain extends JFrame {
 				imagenPersonaje
 						.setIcon(new ImageIcon(GraficaMain.class.getResource("/appImagenes/noImage140x140.png")));
 			}
+		} else {
+			throw new NoPartidaException("Se cancelo la partida nueva");
 		}
 
 	}
@@ -410,7 +420,6 @@ public class GraficaMain extends JFrame {
 		}
 		if (temp3 != null) {
 			if (!partida.elementoYaDisponible(temp3)) {
-				// partida.agregarElementoDisponible(temp3);
 				listaDisponibles.agregar(temp3);
 				resultado.setText("---> " + temp3.getNombreElemento() + " <---");
 				efectoNuevo.play();

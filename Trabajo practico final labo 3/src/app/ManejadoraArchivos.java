@@ -9,7 +9,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Iterator;
 import java.util.Map;
-
+/**
+ * Clase genérica utilizada para establecer comunicación
+ * entre el programa y los archivos necesarios
+ *
+ * @param <T>
+ */
 public class ManejadoraArchivos<T extends Lista> implements IManejadoras {
 	private T lista;
 	private String ruta;
